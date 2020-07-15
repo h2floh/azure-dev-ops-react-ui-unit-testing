@@ -1,0 +1,60 @@
+# File: azure-devops-extension.yml
+### Following Variable Groups have to be in place:
+### 
+###  VisualStudioMarketplace: 
+###
+###  - production-marketplace-publish-pat (PAT Token with scope Marketplace-Publish for 'All accessible Orgs')
+###  - production-marketplace-publisher-id (Visual Studio Marketplace ID to publish to)
+###  - production-marketplace-share-with-orgs (List of Azure DevOps organization(s) with which to share the extension (space separated).)
+###  - staging-marketplace-publish-pat (PAT Token with scope Marketplace-Publish for 'All accessible Orgs')
+###  - staging-marketplace-publisher-id (Visual Studio Marketplace ID to publish to)
+###  - staging-marketplace-share-with-orgs (List of Azure DevOps organization(s) with which to share the extension (space separated).)
+###
+
+trigger:
+  branches:
+    include:
+    - '*'
+  pr:
+    branches:
+      include:
+      - master
+
+variables:
+  - group: VisualStudioMarketplace
+
+stages:
+  - stage: build
+    displayName: 'Build Azure DevOps Extension'
+    jobs:
+      - template: templates/build-extension.yml
+        parameters:
+          publish_pat: $(staging-marketplace-publish-pat)
+          publisher_id: $(staging-marketplace-publisher-id)
+          extension_id: azure-dev-ops-react-ui-unit-testing-staging
+          share_with_orgs: $(staging-marketplace-share-with-orgs)
+          target_env: staging
+
+  - stage: staging
+    displayName: 'Staging: Publish Azure DevOps Extension'
+    condition: and(succeeded(), ne(variables['staging-marketplace-share-with-orgs'], ''), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - template: templates/publish-extension.yml
+        parameters:
+          publish_pat: $(staging-marketplace-publish-pat)
+          publisher_id: $(staging-marketplace-publisher-id)
+          extension_id: azure-dev-ops-react-ui-unit-testing-staging
+          share_with_orgs: $(staging-marketplace-share-with-orgs)
+          target_env: staging
+
+  - stage: production
+    displayName: 'Production: Build and Publish Azure DevOps Extension'
+    condition: and(succeeded(), ne(variables['production-marketplace-share-with-orgs'], ''), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - template: templates/publish-extension.yml
+        parameters:
+          publish_pat: $(production-marketplace-publish-pat)
+          publisher_id: $(production-marketplace-publisher-id)
+          extension_id: azure-dev-ops-react-ui-unit-testing-production
+          share_with_orgs: $(production-marketplace-share-with-orgs)
+          target_env: production
