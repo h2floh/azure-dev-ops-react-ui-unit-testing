@@ -18,6 +18,7 @@ import React from 'react';
 import { VersionedItemLink } from '../Shared/RestAPIClient/VersionedItemLink';
 import VersionedItemsTable from '../VersionedItemsTable/VersionedItemsTable'
 import { LinkStatus } from '../VersionedItemsTable/VersionedItemsTableTypes';
+import { mockTrackException } from '../__mocks__/@microsoft/applicationinsights-web';
 import { mockGetVersionedItemLink, mockHTTPError, mockPostRequests } from '../__mocks__/azure-devops-extension-api/Common/RestClientBase';
 import { mockGetItems } from '../__mocks__/azure-devops-extension-api/Git';
 import { mockGetId, mockIsNew, spyWorkItemCallBackAccessor } from '../__mocks__/azure-devops-extension-sdk'
@@ -34,6 +35,7 @@ describe('VersionedItemsTable', () => {
         mockHTTPError.mockReturnValue(false);
         mockGetItems.mockResolvedValue([]);
         mockGetVersionedItemLink.mockResolvedValue([]);
+        mockTrackException.mockClear();
     });
 
     test('VersionedItemsTable - renders without content', () => {
@@ -333,9 +335,10 @@ describe('VersionedItemsTable', () => {
 
     test('VersionedItemsTable - Git Client Error', async () => {
 
+        const getItemsError = new Error('network unavailable');
         mockIsNew.mockResolvedValue(false);
         mockGetId.mockResolvedValue(997);
-        mockGetItems.mockRejectedValue(new Error('network unavailable'));
+        mockGetItems.mockRejectedValue(getItemsError);
         mockGetVersionedItemLink.mockReturnValue([]);
 
         render(<VersionedItemsTable />);
@@ -343,7 +346,7 @@ describe('VersionedItemsTable', () => {
         // Wait for rendering
         await waitFor(() => screen.getAllByText('Link'));
 
-
+        expect(mockTrackException.mock.calls[0][0]).toEqual({"exception": getItemsError});
     });
 
 });
