@@ -28,7 +28,7 @@ stages:
   - stage: build
     displayName: 'Build Azure DevOps Extension'
     jobs:
-      - template: templates/build-extension.yml
+      - template: build-extension.yml
         parameters:
           publish_pat: $(staging-marketplace-publish-pat)
           publisher_id: $(staging-marketplace-publisher-id)
@@ -40,7 +40,7 @@ stages:
     displayName: 'Staging: Publish Azure DevOps Extension'
     condition: and(succeeded(), ne(variables['staging-marketplace-share-with-orgs'], ''), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
-      - template: templates/publish-extension.yml
+      - template: publish-extension.yml
         parameters:
           publish_pat: $(staging-marketplace-publish-pat)
           publisher_id: $(staging-marketplace-publisher-id)
@@ -52,7 +52,7 @@ stages:
     displayName: 'Production: Build and Publish Azure DevOps Extension'
     condition: and(succeeded(), ne(variables['production-marketplace-share-with-orgs'], ''), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
-      - template: templates/publish-extension.yml
+      - template: publish-extension.yml
         parameters:
           publish_pat: $(production-marketplace-publish-pat)
           publisher_id: $(production-marketplace-publisher-id)
