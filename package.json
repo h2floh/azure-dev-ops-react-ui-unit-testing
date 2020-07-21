@@ -1,0 +1,88 @@
+{
+  "name": "azure-dev-ops-react-ui-unit-testing",
+  "version": "1.0.0",
+  "description": "Azure DevOps ReactUI Testing",
+  "keywords": [
+    "extensions",
+    "Azure DevOps",
+    "Visual Studio Team Services"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "compile": "npm run clean && webpack --mode production",
+    "compile:dev": "npm run clean && webpack --mode development",
+    "build": "npm run compile",
+    "build:dev": "npm run compile:dev && npm run postbuild",
+    "lint": "tslint -c tslint.json 'src/**/*.ts*'",
+    "postbuild": "npm run package-extension",
+    "package-extension": "tfx extension create --manifest-globs azure-devops-extension.json src/**/*.json --output-path extension.vsix",
+    "publish-extension": "tfx extension publish --manifest-globs azure-devops-extension.json src/**/*.json",
+    "linttest": "npm run lint && npm run test",
+    "test": "env TEST_REPORT_FILENAME=test-results.xml jest --verbose"
+  },
+  "dependencies": {
+    "@microsoft/applicationinsights-react-js": "^3.0.0",
+    "@microsoft/applicationinsights-web": "^2.5.5",
+    "@testing-library/dom": "^7.20.0",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.4",
+    "@testing-library/user-event": "^12.0.11",
+    "@types/history": "^4.7.6",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.14",
+    "@types/react": "~16.8.2",
+    "@types/react-dom": "~16.8.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "azure-devops-extension-api": "~1.157.0",
+    "azure-devops-extension-sdk": "~2.0.11",
+    "azure-devops-ui": "~2.164.0",
+    "eslint": "^7.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "tfx-cli": "^0.8.1",
+    "typescript": "^3.9.6"
+  },
+  "devDependencies": {
+    "base64-inline-loader": "^1.1.1",
+    "copy-webpack-plugin": "^4.5.4",
+    "css-loader": "~1.0.0",
+    "file-loader": "~2.0.0",
+    "jest": "^26.1.0",
+    "jest-junit-reporter": "^1.1.0",
+    "node-sass": "~4.12.0",
+    "rimraf": "~2.6.2",
+    "sass-loader": "~7.1.0",
+    "style-loader": "~0.23.1",
+    "ts-jest": "^26.1.1",
+    "ts-loader": "~5.2.2",
+    "ts-mockito": "^2.6.1",
+    "ts-node": "^8.10.2",
+    "webpack": "^4.22.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|ts|tsx|jsx)$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|azure-devops-ui|azure-devops-extension-sdk)/)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "<rootDir>/src/__mocks__/styleMock.js"
+    },
+    "preset": "ts-jest/presets/js-with-babel",
+    "testResultsProcessor": "./node_modules/jest-junit-reporter",
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html",
+      "cobertura"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.test.json"
+      }
+    }
+  }
+}

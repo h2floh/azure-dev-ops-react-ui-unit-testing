@@ -1,0 +1,75 @@
+{
+    "contributions": [
+        {  
+            "id": "azure-git-versioned-items-table-control",
+            "type": "ms.vss-work-web.work-item-form-control",
+            "description": "Custom work item form control for Azure Git Versioned Items.",
+            "targets": [
+                "ms.vss-work-web.work-item-form"
+            ],
+            "properties": {
+                "name": "Versioned Items Table",
+                "uri": "dist/VersionedItemsTable/index.html",
+                "height": 500,
+                "inputs": [
+                    {
+                        "id":"baseEndpointURL",
+                        "name": "Endpoint of the RestAPI",
+                        "description": "Endpoint of the RestAPI",
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    },
+                    {
+                      "id":"RepositoryId",
+                      "name": "Repository Id used for VersionedItem Dropdown",
+                      "description": "Repository Id used for VersionedItem Dropdown",
+                      "validation": {
+                          "dataType": "String",
+                          "isRequired": true
+                      }
+                    },
+                    {
+                      "id":"ProjectName",
+                      "name": "Project Id used for VersionedItem Dropdown",
+                      "description": "Project Id or Name used for VersionedItem Dropdown",
+                      "validation": {
+                          "dataType": "String",
+                          "isRequired": true
+                      }
+                    },
+                    {
+                      "id":"BranchName",
+                      "name": "Branch Id used for VersionedItem Dropdown",
+                      "description": "Branch Id or Name used for VersionedItem",
+                      "validation": {
+                          "dataType": "String",
+                          "isRequired": true
+                      }
+                    },
+                    {
+                      "id":"AppInsightsInstrumentationKey",
+                      "name": "Application Insights Instrumentation Key",
+                      "validation": {
+                          "dataType": "String",
+                          "isRequired": false
+                      }
+                    },
+                    {
+                    "id":"LoggingLevel",
+                    "name": "Logging Level, please enter the number: Critical 4 | Error 3 | Warning 2 | Information 1 | Verbose 0",
+                    "validation": {
+                        "dataType": "String",
+                        "isRequired": false
+                      }
+                    }
+				]
+            }
+        }
+    ],
+    "scopes": [
+        "vso.work",
+        "vso.code"
+    ]
+}

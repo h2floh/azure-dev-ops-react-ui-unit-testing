@@ -1,0 +1,40 @@
+parameters:
+  - name: publish_pat
+    displayName: PAT with scope Marketplace.Publish
+    type: string
+  - name: publisher_id
+    displayName: VisualStudio Marketplace Publisher ID
+  - name: extension_id
+    displayName: VisualStudio Marketplace Extension ID
+    type: string
+  - name: share_with_orgs
+    displayName: AzDO Organisations to share extension with
+    type: string
+  - name: target_env
+    displayName: targeted System of deployment
+    type: string
+
+jobs:
+  - deployment: publish
+
+    displayName: 'Publish Extension to Visual Studio Marketplace'
+
+    pool:
+      name: Azure Pipelines
+      vmImage: 'ubuntu-16.04'
+
+    container: mcr.microsoft.com/vscode/devcontainers/typescript-node:0-14
+
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+    environment: ${{ parameters.target_env }}
+    # Publish Extension
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: none
+          - script: |
+              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix extension.vsix"
+              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix extension.vsix
+            displayName: Publish to Marketplace

@@ -1,0 +1,48 @@
+jobs:
+  - job: build
+    
+    displayName: 'Build Extension for Visual Studio Marketplace'
+    
+    pool:
+      name: Azure Pipelines
+      vmImage: 'ubuntu-16.04'
+
+    container: mcr.microsoft.com/vscode/devcontainers/typescript-node:0-14
+  
+    steps:
+
+    # Install dependencies  
+    - script: npm install
+      displayName: Install Dependencies
+
+    # Linting TS(X) 
+    - script: npm run lint
+      displayName: Linting
+
+    # Test and Code Coverage
+    - script: npm run test
+      displayName: Testing
+
+    # Publish Test Result
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: '**/test-results.xml'
+
+    # Publish Code Coverage
+    - task: PublishCodeCoverageResults@1
+      inputs: 
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+
+    # Build and Packaging extension  
+    - script: npm run build
+      displayName: Build
+
+    # Publish VSIX Artifact
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(System.DefaultWorkingDirectory)/extension.vsix'
+        artifactName: VSIX

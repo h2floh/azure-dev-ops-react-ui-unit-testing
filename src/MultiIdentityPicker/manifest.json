@@ -1,0 +1,68 @@
+{
+    "contributions": [
+        {  
+            "id": "multi-identity-picker-control",
+            "type": "ms.vss-work-web.work-item-form-control",
+            "description": "Custom work item form control for picking multiply identities of current Azure DevOps tenant",
+            "targets": [
+                "ms.vss-work-web.work-item-form"
+            ],
+            "properties": {
+                "name": "Multi Identity Picker",
+                "uri": "dist/MultiIdentityPicker/index.html",
+                "height": 200,
+                "inputs": [
+				    {
+                        "id":"FieldName",
+                        "name": "Select the field for this control.",
+                        "type": "WorkItemField",
+                        "properties": {
+                            "workItemFieldTypes": ["PlainText"]
+                        },
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    },
+                    {
+                        "id":"PlaceholderText",
+                        "name": "Placeholder Text to be displayed in control",
+                        "description": "Placeholder Text to be displayed in control",
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": true
+                        }
+                    },
+                    {
+                        "id":"DevOpsBaseUrl",
+                        "name": "DevOps Base URL",
+                        "description": "DevOps Base URL",
+                        "validation": {
+                            "dataType": "String",
+                            "isRequired": false
+                        }
+                    },
+                    {
+                      "id":"AppInsightsInstrumentationKey",
+                      "name": "Application Insights Instrumentation Key",
+                      "validation": {
+                          "dataType": "String",
+                          "isRequired": false
+                      }
+                    },
+                    {
+                    "id":"LoggingLevel",
+                    "name": "Logging Level, please enter the number: Critical 4 | Error 3 | Warning 2 | Information 1 | Verbose 0",
+                    "validation": {
+                        "dataType": "String",
+                        "isRequired": false
+                      }
+                    }
+				]
+            }
+        }
+    ],
+    "scopes": [
+        "vso.work"
+    ]
+}
