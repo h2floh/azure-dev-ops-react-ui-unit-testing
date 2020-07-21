@@ -15,10 +15,11 @@ trigger:
   branches:
     include:
     - '*'
-  pr:
-    branches:
-      include:
-      - master
+
+pr:
+  branches:
+    include:
+    - master
 
 variables:
   - group: VisualStudioMarketplace
