@@ -25,7 +25,7 @@ jobs:
 
     container: mcr.microsoft.com/vscode/devcontainers/typescript-node:0-14
 
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
 
     environment: ${{ parameters.target_env }}
     # Publish Extension
