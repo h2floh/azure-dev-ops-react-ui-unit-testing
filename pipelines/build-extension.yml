@@ -1,7 +1,7 @@
 jobs:
   - job: build
     
-    displayName: 'Build and Publish Extension to Visual Studio Marketplace'
+    displayName: 'Build Extension for Visual Studio Marketplace'
     
     pool:
       name: Azure Pipelines
@@ -44,5 +44,5 @@ jobs:
     # Publish VSIX Artifact
     - task: PublishBuildArtifacts@1
       inputs:
-        pathToPublish: '$(System.DefaultWorkingDirectory)/*.vsix'
+        pathToPublish: '$(System.DefaultWorkingDirectory)/extension.vsix'
         artifactName: VSIX

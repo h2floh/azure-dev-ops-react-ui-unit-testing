@@ -35,6 +35,6 @@ jobs:
           steps:
           - download: none
           - script: |
-              echo "tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix *.vsix"
-              tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix *.vsix
+              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix extension.vsix"
+              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix extension.vsix
             displayName: Publish to Marketplace
