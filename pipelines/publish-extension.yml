@@ -34,7 +34,7 @@ jobs:
           # Install dependencies  
           - script: npm install tfx-cli
             displayName: Install tfx cli tool
-            failOnStderr: true
+            failOnStderr: false
           # Publish Extension
           - script: |
               echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix VSIX/extension.vsix"
