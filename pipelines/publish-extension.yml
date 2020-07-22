@@ -31,13 +31,16 @@ jobs:
       runOnce:
         deploy:
           steps:
+          # Donwload VSIX artifact to $(Pipeline.Workspace)  
+          - download: current
+            artifact: VSIX
           # Install dependencies  
           - script: npm install tfx-cli
             displayName: Install tfx cli tool
             failOnStderr: false
           # Publish Extension
           - script: |
-              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(System.ArtifactsDirectory)/VSIX/extension.vsix"
-              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(System.ArtifactsDirectory)/VSIX/extension.vsix
+              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/extension.vsix"
+              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/extension.vsix
             displayName: Publish to Marketplace
             failOnStderr: true
