@@ -2,10 +2,8 @@ parameters:
   - name: publish_pat
     displayName: PAT with scope Marketplace.Publish
     type: string
-  - name: publisher_id
-    displayName: VisualStudio Marketplace Publisher ID
-  - name: extension_id
-    displayName: VisualStudio Marketplace Extension ID
+  - name: package_name
+    displayName: Name of Artifact VISX package
     type: string
   - name: share_with_orgs
     displayName: AzDO Organisations to share extension with
@@ -40,7 +38,7 @@ jobs:
             failOnStderr: false
           # Publish Extension
           - script: |
-              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/extension.vsix"
-              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/extension.vsix
+              echo "npx tfx extension publish --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/${{ parameters.package_name }}.vsix"
+              npx tfx extension publish --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/${{ parameters.package_name }}.vsix
             displayName: Publish to Marketplace
             failOnStderr: true
