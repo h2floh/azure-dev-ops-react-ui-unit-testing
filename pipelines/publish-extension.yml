@@ -37,7 +37,7 @@ jobs:
             failOnStderr: false
           # Publish Extension
           - script: |
-              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix VSIX/extension.vsix"
-              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix VSIX/extension.vsix
+              echo "npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(System.ArtifactsDirectory)/VSIX/extension.vsix"
+              npx tfx extension publish --publisher ${{ parameters.publisher_id }} --extension-id ${{ parameters.extension_id }} --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(System.ArtifactsDirectory)/VSIX/extension.vsix
             displayName: Publish to Marketplace
             failOnStderr: true
