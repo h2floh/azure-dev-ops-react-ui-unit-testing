@@ -1,3 +1,13 @@
+parameters:
+  - name: staging_publisher_id
+    displayName: VisualStudio Marketplace Publisher ID for Stating
+  - name: staging_extension_id
+    displayName: VisualStudio Marketplace Extension ID for Stating
+  - name: production_publisher_id
+    displayName: VisualStudio Marketplace Publisher ID for Production
+  - name: production_extension_id
+    displayName: VisualStudio Marketplace Extension ID for Production
+
 jobs:
   - job: build
     
@@ -37,12 +47,24 @@ jobs:
         summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
         reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
 
-    # Build and Packaging extension  
+    # Build extension  
     - script: npm run build
       displayName: Build
+
+    # Package for Staging
+    - script: |
+        echo "npx tfx extension create --manifest-globs azure-devops-extension.json src/**/*.json --publisher ${{ parameters.staging_publisher_id }} --extension-id ${{ parameters.staging_extension_id }} --output-path $(System.DefaultWorkingDirectory)/output/staging.vsix"
+        npx tfx extension create --manifest-globs azure-devops-extension.json src/**/*.json --publisher ${{ parameters.staging_publisher_id }} --extension-id ${{ parameters.staging_extension_id }} --output-path $(System.DefaultWorkingDirectory)/output/staging.vsix
+      displayName: Package for Staging
+
+    # Package for Production
+    - script: |
+        echo "npx tfx extension create --manifest-globs azure-devops-extension.json src/**/*.json --publisher ${{ parameters.production_publisher_id }} --extension-id ${{ parameters.production_extension_id }} --output-path $(System.DefaultWorkingDirectory)/output/production.vsix"
+        npx tfx extension create --manifest-globs azure-devops-extension.json src/**/*.json --publisher ${{ parameters.production_publisher_id }} --extension-id ${{ parameters.production_extension_id }} --output-path $(System.DefaultWorkingDirectory)/output/production.vsix
+      displayName: Package for Production
 
     # Publish VSIX Artifact
     - task: PublishBuildArtifacts@1
       inputs:
-        pathToPublish: '$(System.DefaultWorkingDirectory)/extension.vsix'
+        pathToPublish: '$(System.DefaultWorkingDirectory)/output'
         artifactName: VSIX

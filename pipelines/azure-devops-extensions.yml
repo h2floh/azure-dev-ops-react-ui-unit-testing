@@ -30,11 +30,10 @@ stages:
     jobs:
       - template: build-extension.yml
         parameters:
-          publish_pat: $(staging-marketplace-publish-pat)
-          publisher_id: $(staging-marketplace-publisher-id)
-          extension_id: azure-dev-ops-react-ui-unit-testing-staging
-          share_with_orgs: $(staging-marketplace-share-with-orgs)
-          target_env: staging
+          staging_publisher_id: $(staging-marketplace-publisher-id)
+          staging_extension_id: azure-dev-ops-react-ui-unit-testing-staging
+          production_publisher_id: $(production-marketplace-publisher-id)
+          production_extension_id: azure-dev-ops-react-ui-unit-testing-production
 
   - stage: staging
     displayName: 'Staging: Publish Azure DevOps Extension'
@@ -43,19 +42,17 @@ stages:
       - template: publish-extension.yml
         parameters:
           publish_pat: $(staging-marketplace-publish-pat)
-          publisher_id: $(staging-marketplace-publisher-id)
-          extension_id: azure-dev-ops-react-ui-unit-testing-staging
+          package_name: staging
           share_with_orgs: $(staging-marketplace-share-with-orgs)
           target_env: staging
 
   - stage: production
-    displayName: 'Production: Build and Publish Azure DevOps Extension'
+    displayName: 'Production: Publish Azure DevOps Extension'
     condition: and(succeeded(), ne(variables['production-marketplace-share-with-orgs'], ''), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: publish-extension.yml
         parameters:
           publish_pat: $(production-marketplace-publish-pat)
-          publisher_id: $(production-marketplace-publisher-id)
-          extension_id: azure-dev-ops-react-ui-unit-testing-production
+          package_name: production
           share_with_orgs: $(production-marketplace-share-with-orgs)
           target_env: production
