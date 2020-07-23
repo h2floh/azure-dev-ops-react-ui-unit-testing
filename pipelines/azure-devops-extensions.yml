@@ -14,10 +14,10 @@
 trigger:
   branches:
     include:
-    - '*'
+    - main
   paths:
     exclude:
-    - 'dummyrestapi'
+    - dummyrestapi
 
 pr:
   branches:
