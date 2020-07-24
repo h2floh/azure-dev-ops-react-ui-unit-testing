@@ -18,6 +18,7 @@ trigger:
   paths:
     exclude:
     - dummyrestapi
+    - docs
 
 pr:
   branches:
