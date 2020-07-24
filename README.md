@@ -1,5 +1,9 @@
 # Unit test Azure Dev Ops React UI Extensions or how to mock Azure DevOps Extension SDK and API
 
+[![Build Status](https://dev.azure.com/flwagner/Azure%20DevOps%20ReactUI%20Testing/_apis/build/status/h2floh.azure-dev-ops-react-ui-unit-testing?branchName=main&stageName=Build%20Azure%20DevOps%20Extension&label=Extension%20Build)](https://dev.azure.com/flwagner/Azure%20DevOps%20ReactUI%20Testing/_build/latest?definitionId=18&branchName=main)
+![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/flwagner/Azure%2520DevOps%2520ReactUI%2520Testing/18?label=Extension%20Code%20Coverage)
+![Azure DevOps tests](https://img.shields.io/azure-devops/tests/flwagner/Azure%2520DevOps%2520ReactUI%2520Testing/18?label=Extension%20Test%20Results)
+
 This repo is showcasing Azure DevOps React based UI Extension unit testing for an advanced example.
 
 ## Purpose
