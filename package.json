@@ -35,6 +35,7 @@
     "azure-devops-extension-api": "~1.157.0",
     "azure-devops-extension-sdk": "~2.0.11",
     "azure-devops-ui": "~2.164.0",
+    "bl": ">=1.2.3",
     "eslint": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "base64-inline-loader": "^1.1.1",
+    "bl": ">=1.2.3",
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "~1.0.0",
     "file-loader": "~2.0.0",
