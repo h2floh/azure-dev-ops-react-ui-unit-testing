@@ -15,6 +15,8 @@ export let reactPlugin: ReactPlugin;
 export class Logger {
     /** Severity Level for current instance of Logger. Only same and higher Severity will be logged */
     private logLevel: SeverityLevel;
+    /** Control Name which is logging to be include in custom dimensions */
+    private controlName: string;
 
     /**
      * Constructor for Logger
@@ -26,6 +28,7 @@ export class Logger {
      * @returns {Logger} Logger instance
      */
     constructor(controlname: string, instrumentationKey?: string, logLevel?: SeverityLevel, appInsightsObject?: ApplicationInsights) {
+        this.controlName = controlname;
         if (instrumentationKey !== undefined && logLevel !== undefined)
         {
             const browserHistory = createBrowserHistory({ basename: '' });
@@ -63,7 +66,7 @@ export class Logger {
     public logEvent(name: string, logLevel: SeverityLevel) {
         if (this.logLevel <= logLevel)
         {
-            appInsights.trackEvent({name});
+            appInsights.trackEvent({name}, {"controlName" : this.controlName});
         }
     }
 
@@ -77,7 +80,7 @@ export class Logger {
     public logTrace(message: string, logLevel: SeverityLevel) {
         if (this.logLevel <= logLevel)
         {
-            appInsights.trackTrace({message, severityLevel: logLevel});
+            appInsights.trackTrace({message, severityLevel: logLevel}, {"controlName" : this.controlName});
         }
     }
 

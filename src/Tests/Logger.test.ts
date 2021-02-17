@@ -26,10 +26,10 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logTrace('INFORMATION', SeverityLevel.Information);
     logger.logTrace('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackTrace(anything())).times(1);
+    verify(mockAppInsightsClass.trackTrace(anything(), anything())).times(1);
 });
 
-  test('Logger - TRACE: should log CRITICAL, ERROR with logLevel.CRITICAL in place' , () => {
+  test('Logger - TRACE: should log CRITICAL, ERROR with logLevel.ERROR in place' , () => {
 
     const mockAppInsightsClass = mock(ApplicationInsights);
     const mockAppInsights = instance(mockAppInsightsClass);
@@ -42,7 +42,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logTrace('INFORMATION', SeverityLevel.Information);
     logger.logTrace('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackTrace(anything())).times(2);
+    verify(mockAppInsightsClass.trackTrace(anything(), anything())).times(2);
   });
 
   test('Logger - TRACE: should log CRITICAL, ERROR, WARNING with logLevel.WARNING in place' , () => {
@@ -58,7 +58,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logTrace('INFORMATION', SeverityLevel.Information);
     logger.logTrace('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackTrace(anything())).times(3);
+    verify(mockAppInsightsClass.trackTrace(anything(), anything())).times(3);
   });
 
   test('Logger - TRACE: should log CRITICAL, ERROR, WARNING, INFORMATION with logLevel.INFORMATION in place' , () => {
@@ -74,7 +74,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logTrace('INFORMATION', SeverityLevel.Information);
     logger.logTrace('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackTrace(anything())).times(4);
+    verify(mockAppInsightsClass.trackTrace(anything(), anything())).times(4);
   });
 
   test('Logger - TRACE: should log CRITICAL, ERROR, WARNING, INFORMATION, DEBUG with logLevel.DEBUG in place' , () => {
@@ -90,7 +90,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logTrace('INFORMATION', SeverityLevel.Information);
     logger.logTrace('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackTrace(anything())).times(5);
+    verify(mockAppInsightsClass.trackTrace(anything(), anything())).times(5);
   });
 
   test('Logger - EXCEPTION: should only log CRITICAL with SeverityLevel.Critical in place' , () => {
@@ -187,7 +187,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logEvent('INFORMATION', SeverityLevel.Information);
     logger.logEvent('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackEvent(anything())).times(1);
+    verify(mockAppInsightsClass.trackEvent(anything(), anything())).times(1);
   });
 
   test('Logger - EVENT: should log CRITICAL, ERROR with SeverityLevel.Error in place' , () => {
@@ -203,7 +203,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logEvent('INFORMATION', SeverityLevel.Information);
     logger.logEvent('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackEvent(anything())).times(2);
+    verify(mockAppInsightsClass.trackEvent(anything(), anything())).times(2);
   });
 
   test('Logger - EVENT: should log CRITICAL, ERROR, WARNING with logLevel.WARNING in place' , () => {
@@ -219,7 +219,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logEvent('INFORMATION', SeverityLevel.Information);
     logger.logEvent('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackEvent(anything())).times(3);
+    verify(mockAppInsightsClass.trackEvent(anything(), anything())).times(3);
   });
 
   test('Logger - EVENT: should log CRITICAL, ERROR, WARNING, INFORMATION with logLevel.INFORMATION in place' , () => {
@@ -235,7 +235,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logEvent('INFORMATION', SeverityLevel.Information);
     logger.logEvent('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackEvent(anything())).times(4);
+    verify(mockAppInsightsClass.trackEvent(anything(), anything())).times(4);
   });
 
   test('Logger - EVENT: should log CRITICAL, ERROR, WARNING, INFORMATION, DEBUG with SeverityLevel.Verbose in place' , () => {
@@ -251,7 +251,7 @@ test('Logger - TRACE: should only log CRITICAL with logLevel.CRITICAL in place' 
     logger.logEvent('INFORMATION', SeverityLevel.Information);
     logger.logEvent('VERBOSE', SeverityLevel.Verbose);
 
-    verify(mockAppInsightsClass.trackEvent(anything())).times(5);
+    verify(mockAppInsightsClass.trackEvent(anything(), anything())).times(5);
   });
 
   test('Logger - DEPENDENCY: should only log CRITICAL with SeverityLevel.Critical in place' , () => {
