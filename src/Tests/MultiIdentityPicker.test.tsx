@@ -59,9 +59,9 @@ test('MultiIdentityPicker - On Identity Removed', async () => {
 
     expect(screen.getByText('GilDong Hong')).toBeDefined();
 
-    const buttons = screen.getAllByLabelText('Remove');
-    // Second Button 'GilDong Hong' Delete
-    fireEvent.click(buttons[1]);
+    const buttons = screen.getAllByLabelText('Remove GilDong Hong');
+    // Button 'GilDong Hong' Delete
+    fireEvent.click(buttons[0]);
 
     await waitFor(() => screen.getByText('Florian Wagner'));
 

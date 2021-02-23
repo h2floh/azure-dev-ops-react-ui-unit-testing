@@ -164,7 +164,7 @@ describe('VersionedItemsTable', () => {
          */
         const deleteButton = screen.getByLabelText(/Delete icon/);
         // Select unique element
-        const item = screen.getByLabelText('Comment');
+        const item = screen.getByDisplayValue('commentar');
 
         // Press save
         fireEvent.click(deleteButton);

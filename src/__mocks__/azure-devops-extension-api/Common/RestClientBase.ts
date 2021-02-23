@@ -37,7 +37,8 @@ export class RestClientBase {
      * @returns Promise for the response
      */
     protected beginRequest<T>(requestParams: RestClientRequestParams): Promise<T> {
-        return new Promise((resolve) => resolve(undefined));
+        const result: any = [];
+        return new Promise((resolve) => resolve(result));
     }
 
     /**
