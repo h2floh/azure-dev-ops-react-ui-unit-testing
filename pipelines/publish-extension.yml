@@ -38,6 +38,8 @@ jobs:
             failOnStderr: false
           # Publish Extension
           - script: |
+              echo "export NODE_NO_WARNINGS=1"
+              export NODE_NO_WARNINGS=1
               echo "npx tfx extension publish --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/${{ parameters.package_name }}.vsix"
               npx tfx extension publish --token ${{ parameters.publish_pat }} --share-with ${{ parameters.share_with_orgs }} --vsix $(Pipeline.Workspace)/VSIX/${{ parameters.package_name }}.vsix
             displayName: Publish to Marketplace
