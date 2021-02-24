@@ -107,7 +107,8 @@ export class VersionedItemsTable extends React.Component<{}> {
             // Init Logger
             const instrumentationKey = (SDK.getConfiguration().witInputs.AppInsightsInstrumentationKey as string);
             const maxLogLevel = (SDK.getConfiguration().witInputs.LoggingLevel as SeverityLevel);
-            this.logger = new Logger(this.constructor.name, instrumentationKey, maxLogLevel);
+            // this.constructor.name will output useless information after minified 
+            this.logger = new Logger('VersionedItemsTable', instrumentationKey, maxLogLevel);
             this.logger.startTracking('Initialization');
             this.logger.logTrace(`Logger Initialized with logLevel ${maxLogLevel}`, SeverityLevel.Verbose);
 
