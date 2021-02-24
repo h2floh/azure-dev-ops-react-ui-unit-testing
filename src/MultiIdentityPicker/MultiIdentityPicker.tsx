@@ -83,7 +83,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
           // Init Logger
           const instrumentationKey = (SDK.getConfiguration().witInputs.AppInsightsInstrumentationKey as string);
           const maxLogLevel = (SDK.getConfiguration().witInputs.LoggingLevel as SeverityLevel);
-          // this.constructor.name will output useless information after minified 
+          // this.constructor.name will output useless information after minified
           this.logger = new Logger('MultiIdentityPicker', instrumentationKey, maxLogLevel);
           this.logger.startTracking('Initialization');
           this.logger.logTrace(`Logger Initialized with logLevel ${maxLogLevel}`, SeverityLevel.Verbose);
