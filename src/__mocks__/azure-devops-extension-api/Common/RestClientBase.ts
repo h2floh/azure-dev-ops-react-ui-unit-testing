@@ -3,14 +3,18 @@ import { RestClientRequestParams } from "azure-devops-extension-api/Common/RestC
 
 
 /**
- * Accessors to Mocked Rest Client Base methods
+ * Accessor mocks to change the behaviour of the mocked HTTP results
  */
 export const mockHTTPError = jest.fn().mockReturnValue(false);
 export const mockGetVersionedItemLink = jest.fn();
 export const mockPostRequests = jest.fn((requestUrl: string, request: RestClientRequestParams) => { return request });
 export let spyAuthorizationHeader: string;
+
 /**
- * Mocked Rest Client Base
+ * Mocking RestClientBase
+ * as we can not have external dependencies in unit tests
+ * all HTTP requests are short cut here, expected results are defined
+ * within the unit tests
  */
 export class RestClientBase {
 
@@ -50,15 +54,20 @@ export class RestClientBase {
      */
     protected _issueRequest<T>(requestUrl: string, apiVersion: string, requestParams: RestClientRequestParams): Promise<T> {
 
+        // be able to throw an error to test HTTP request error handling
         if (mockHTTPError()) {
             throw new Error("Mocked HTTP Error");
         }
 
         let result: any = [];
 
+        // for GET requests depending on the requested service
+        // (identified via the URL) return a different mocked result
         if (requestUrl.match(/\/api\/versioneditem\/\d+\?api-version=/) && requestParams.method === "GET") {
             result = mockGetVersionedItemLink();
         }
+        // for POST requests call a mock to be able to be able to
+        // check the request payload in the unit test
         else if (requestParams.method === "POST") {
             mockPostRequests(requestUrl, requestParams);
         }

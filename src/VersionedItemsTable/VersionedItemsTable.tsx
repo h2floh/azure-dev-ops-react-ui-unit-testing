@@ -155,6 +155,7 @@ export class VersionedItemsTable extends React.Component<{}> {
     private async preloadGitRepoItems(repositoryId: string, projectId: string, branchName: string) {
 
         try {
+            // retrieve all items from given Git Repository and branch
             this.gitItems = await this.gitRestService!.getItems(
                 repositoryId,
                 projectId,

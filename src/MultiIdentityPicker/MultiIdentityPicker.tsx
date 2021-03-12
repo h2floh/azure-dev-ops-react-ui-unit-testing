@@ -72,8 +72,10 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
      * and reports successful load back to the SDK
      */
     public componentDidMount() {
+        // Azure DevOps Extension SDK will be initialized
         SDK.init().then(() => {
 
+          // After the SDK is initialized we retrieve configuration values from it (here FieldName)
           this.referenceNameIdentities = SDK.getConfiguration().witInputs.FieldName;
 
           if (SDK.getConfiguration().witInputs.DevOpsBaseUrl != null) {
@@ -176,16 +178,19 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
     };
 
     /**
-     * Reads the current list of Identies from the Work Item Field designated for Identities as JSON array of emails
-     * and adds them to the control state
+     * Reads the current list of Identies from the Work Item Field designated
+     * for Identities as JSON array of emails and adds them to the control state
      */
     private async readOwnerSetField() {
-        this.logger.logTrace(`Loading current selected Identities from field ${this.referenceNameIdentities}.`, SeverityLevel.Verbose);
+        this.logger.logTrace(`Loading current selected Identities from field
+            ${this.referenceNameIdentities}.`, SeverityLevel.Verbose);
 
+        // retrieve the WorkItemFormService client from the SDK
         const workItemFormService = await SDK.getService<IWorkItemFormService>(
             WorkItemTrackingServiceIds.WorkItemFormService
         );
 
+        // retrieve the value of the 'referenceNameIdentities' work item field
         const jsonValue = await workItemFormService.getFieldValue(
             this.referenceNameIdentities,
             true

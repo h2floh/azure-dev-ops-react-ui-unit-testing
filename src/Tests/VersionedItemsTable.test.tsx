@@ -51,8 +51,10 @@ describe('VersionedItemsTable', () => {
 
     test('VersionedItemsTable - renders VersionedItems', async () => {
 
+        // prepare the test existing WorkItem with WorkItemId 999
         mockIsNew.mockReturnValue(false);
         mockGetId.mockResolvedValue(999);
+        // prepare the test, one file in the git repository named somescript.py
         mockGetItems.mockReturnValue([
             {
                 commitId: "commitId",
@@ -143,7 +145,7 @@ describe('VersionedItemsTable', () => {
         expect(verItemLink1.linkStatus).toBe(LinkStatus.ok);
 
         /**
-         * Change Comment and save
+         * Change Comment to value 'commentar' and save
          */
         const comment2 = screen.getByRole('textbox');
         fireEvent.change(comment2, { target: { value: 'commentar' } });
@@ -154,8 +156,10 @@ describe('VersionedItemsTable', () => {
         // Wait for comment textbox to appear
         await waitFor(() => screen.getAllByRole('textbox'));
 
-        // Evaluate if commentar changed
+        // Assert that the correct URL parameters were set
         expect(mockPostRequests.mock.calls[1][0]).toEqual('https://localhost:5000/api/versioneditem/997?api-version=2020-07-15');
+
+        // Assert that comment value in the REST call payload was set to 'commentar'
         const verItemLink2 = ((mockPostRequests.mock.results[1].value as RestClientRequestParams).body) as VersionedItemLink;
         expect(verItemLink2.comment).toEqual("commentar");
 
@@ -180,21 +184,27 @@ describe('VersionedItemsTable', () => {
 
     test('VersionedItemsTable - check disable/enable AddVersionedItem button', async () => {
 
+        // Prepare the test run, new WorkItem has no WorkItemId yet
         mockIsNew.mockReturnValue(true);
         mockGetId.mockResolvedValue(undefined);
 
+        // Render the control
         render(<VersionedItemsTable />);
 
+        // Wait for the button to add a VersionedItem to appear
         await waitFor(() => screen.queryAllByText('Add VersionedItem Link'));
-
+        // assert that this button is disabled
         expect(screen.getByRole('button').getAttribute('aria-disabled')).toEqual("true");
 
-        // Save Work Item
+        // Saving the Work Item, we simulate that the user pressed
+        // the save button of the Work Item by setting isNew to false
+        // and callback onSaved event with a assigned WorkItemId
         mockIsNew.mockReturnValue(false);
         spyWorkItemCallBackAccessor().onSaved({id: 800});
 
+        // Wait for the button to be rerendered
         await waitFor(() => screen.queryAllByText('Add VersionedItem Link'));
-
+        // assert that the button is now enabled
         expect(screen.getByRole('button').getAttribute('aria-disabled')).toEqual("false");
 
     });
@@ -335,17 +345,22 @@ describe('VersionedItemsTable', () => {
 
     test('VersionedItemsTable - Git Client Error', async () => {
 
+        // Prepare unit test
+        // HTTP calls with GitClient will break
         const getItemsError = new Error('network unavailable');
+        // existing WorkItem with WorkItemId 997
         mockIsNew.mockResolvedValue(false);
         mockGetId.mockResolvedValue(997);
         mockGetItems.mockRejectedValue(getItemsError);
         mockGetVersionedItemLink.mockReturnValue([]);
 
+        // Rendering control
         render(<VersionedItemsTable />);
 
-        // Wait for rendering
+        // Wait for rendering to complete
         await waitFor(() => screen.getAllByText('Link'));
 
+        // Assert that the exception was logged
         expect(mockTrackException.mock.calls[0][0]).toEqual({"exception": getItemsError});
     });
 
