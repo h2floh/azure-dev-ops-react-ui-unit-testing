@@ -1,12 +1,12 @@
 /**
- * Accessors to mocked getConfiguration values
+ * Accessor mocks to verify content of log messages in the unit tests
  */
 export const mockTrackEvent = jest.fn();
 export const mockTrackTrace = jest.fn();
 export const mockTrackException = jest.fn();
 
 /**
- * Mocked Application Insights
+ * Mocking ApplicationInsights
  */
 export class ApplicationInsights {
 
@@ -17,14 +17,16 @@ export class ApplicationInsights {
     public loadAppInsights(): void {}
 
     /**
-     * Mocked trackEvent
+     * Mocking trackEvent
+     * call mockTrackTrace with same parameters
      */
     public trackEvent(event: any, customProperties?: any): void {
         mockTrackEvent(event, customProperties);
     }
 
     /**
-     * Mocked trackEvent
+     * Mocking trackTrace
+     * call mockTrackTrace with same parameters
      */
     public trackTrace(trace: any, customProperties?: any): void {
         mockTrackTrace(trace, customProperties);
@@ -44,7 +46,8 @@ export class ApplicationInsights {
 
 
     /**
-     * Mocked trackException
+     * Mocking trackException
+     * call mockTrackException with same parameters
      */
     public trackException(exception: any): void {
         mockTrackException(exception);

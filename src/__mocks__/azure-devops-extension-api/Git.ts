@@ -9,12 +9,13 @@ import { IVssRestClientOptions } from "azure-devops-extension-api/Common";
 // import * as Git from "azure-devops-extension-api/Git/Git";
 
 /**
- * Accessor for Git Client getItems Method
+ * Accessor mock to be able to overwrite the return value
+ * returned by GitRestClient .getItems() method in a unit test
  */
 export const mockGetItems = jest.fn().mockReturnValue([]);
 
 /**
- * Mocked Git Client
+ * Mocking the GitRestClient
  */
 export class GitRestClient {
     // tslint:disable-next-line: no-empty
@@ -40,8 +41,10 @@ export class GitRestClient {
         versionDescriptor?: GitVersionDescriptor): Promise<GitItem[]> {
 
         if (repositoryId === "gitrepo") {
+                // return value of mockGetItems if the repositoryId is 'gitrepo'
                 return new Promise((resolve) => resolve(mockGetItems()));
             } else {
+                // for any other repositoryId throw an Error (for error testing)
                 throw new Error(`Repository does not exists: ${repositoryId}`)
             }
     }

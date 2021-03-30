@@ -1,7 +1,9 @@
+// here the mock is imported not the original implementation
 import { GitRestClient } from "./Git"
 
 /**
- * Mocked getClient returns different client depending on request
+ * Mocking getClient returns different mocked client depending on the request
+ * in our sample only GitRestClient is used
  */
 export function getClient(clientClass: any) {
 

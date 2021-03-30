@@ -3,7 +3,7 @@ import { IWorkItemChangedArgs, IWorkItemFieldChangedArgs, IWorkItemLoadedArgs, W
 import { IHostContext, IUserContext } from "azure-devops-extension-sdk";
 
 /**
- * Mocked getUser()
+ * Mocking SDK.getUser() and provide fixed values
  */
 export function getUser() : IUserContext {
     return {
@@ -16,7 +16,7 @@ export function getUser() : IUserContext {
 }
 
 /**
- * Mocked getHost()
+ * Mocking SDK.getHost() and provide fixed values
  */
 export function getHost(): IHostContext {
     return {
@@ -28,26 +28,27 @@ export function getHost(): IHostContext {
 }
 
 /**
- * Mocked Init Function to return resolve
+ * Mocking SDK's init function to return
+ * resolve(successful execution/init) to activate the .then block
  */
 export function init() : Promise<void> {
     return new Promise((resolve, reject) => resolve());
 }
 
 /**
- * Mocked notifyLoadSucceeded does nothing
+ * Mocking SDK.notifyLoadSucceeded does nothing
  */
 // tslint:disable-next-line: no-empty
 export function notifyLoadSucceeded() {}
 
 /**
- * Mocked getContributionId returns some Id
+ * Mocking SDK.getContributionId returns some Id
  */
 export function getContributionId() { return "someContributionId" }
 
 
 /**
- * Type and Accessor for WorkItem events
+ * Create type for WorkItemForm callback functions
  */
 // tslint:disable-next-line: class-name
 type workItemCallBackType = () => {
@@ -65,22 +66,28 @@ type workItemCallBackType = () => {
     onRefreshed: (args: IWorkItemChangedArgs) => Promise<void>;
     };
 
-/** Spy eventHook to test WorkItemForm Events */
+/** Creating a Spy to be able to call the callbacks from within a unit test */
 export let spyWorkItemCallBackAccessor: workItemCallBackType;
+
 /**
- * Mocked register returns empty data structure
+ * Mocking SDK.register()
+ * Assign the callback methods (parameter instance) passed from the controls to the spy
  */
 export function register (instanceId: string, instance: workItemCallBackType) {
     spyWorkItemCallBackAccessor = instance;
 }
 
 /**
- * Accessors to mocked getConfiguration values
+ * Indirect accessor to mocked getConfiguration values
+ * here for "RepositoryId" with defaultValue "gitrepo".
+ * The value can be overwritten in the test file by importing mockRepositoryId
+ * and calling mockRepositoryId.mockReturnValue("other_value")
  */
 export const mockRepositoryId = jest.fn().mockReturnValue("gitrepo");
 
 /**
- * Mocked getConfiguration returns basic configuration for all controls
+ * Mocking SDK.getConfiguration(), will return fix witInput parameters for all controls
+ * except for 'RepositoryId' which can be overwritten within the unit test.
  */
 export function getConfiguration() {
     return {
@@ -91,35 +98,37 @@ export function getConfiguration() {
             DevOpsBaseUrl: "https://dev.azure.com/",
             RepositoryId: mockRepositoryId(),
             ProjectName: "react-unit-test",
-            BranchName: "master"
+            BranchName: "master",
+            FieldName: "myField"
         }
     }
 }
 
 /**
- * Accessors to Mocked getService methods
+ * Accessor mock to be able to overwrite the value
+ * returned by WorkItemFormService methods in a unit test
  */
-export const mockGetFieldValue = jest.fn();
-export const mockIsNew = jest.fn().mockResolvedValue(true);
-export const mockGetId = jest.fn();
-export const mockSetFieldValue = jest.fn();
-export const mockClearError = jest.fn();
-export const mockSetError = jest.fn();
+export const mockGetFieldValue = jest.fn(); // .getFieldValue()
+export const mockIsNew = jest.fn().mockResolvedValue(true); // .isNew()
+export const mockGetId = jest.fn(); // .getId()
+export const mockSetFieldValue = jest.fn(); // .setFieldValue()
+export const mockClearError = jest.fn(); // .clearError()
+export const mockSetError = jest.fn(); // .setError()
 
 /**
- * Mocked getService methods mockSearchIdentitiesAsync
+ * Mocking IdentityService.SearchIdentitiesAsync()
  */
 export function mockSearchIdentitiesAsync(query: string, identityTypes?: string[], operationScopes?: string[], queryTypeHint?: string, options?: any, filterIdentity?: any) {
 
     let result: any = [];
 
     switch(query) {
-        case "h2floh@h2floh.net":
+        case "git@h2floh.net":
             result = [
                 {
                     displayName: "Florian Wagner",
                     image: "https://tosomeimage/fl.png",
-                    entityId: "h2floh@h2floh.net"
+                    entityId: "git@h2floh.net"
                 }
             ];
             break;
@@ -138,19 +147,24 @@ export function mockSearchIdentitiesAsync(query: string, identityTypes?: string[
 }
 
 /**
- * Mocked getService returns mocked methods
+ * Mocking SDK.getService() depending on which service is requested
+ * it will return mocks for these services
+ * here IdentityService or WorkItemFormService
  */
 export function getService(contributionId: string) {
 
     switch(contributionId) {
         case IdentityServiceIds.IdentityService:
             return new Promise((resolve) => resolve({
+                    // only need to return mocks for the
+                    // used IdentityService methods
                     searchIdentitiesAsync: mockSearchIdentitiesAsync
                     }
                 ));
         case WorkItemTrackingServiceIds.WorkItemFormService:
             return {
-                // WorkItemFormService
+                // only need to return mocks for the
+                // used WorkItemFormService methods
                 isNew: mockIsNew,
                 getFieldValue: mockGetFieldValue,
                 setFieldValue: mockSetFieldValue,

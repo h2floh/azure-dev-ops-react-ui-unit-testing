@@ -15,11 +15,14 @@ jest.mock('../Common');
 
 test('MultiIdentityPicker - use current Identity if no one can loaded', async () => {
 
-  // No Identities Field Value
+  // Start with no Identities provided in the work item field assigned
   mockGetFieldValue.mockReturnValue("");
 
+  // This will start rendering the control for the test and
+  // therefore invoke componentDidMount() of MultiIdentityPicker
   render(<MultiIdentityPicker />);
 
+  // Check if the current user was assigned
   await waitFor(() => screen.getByText('Jest Wagner'));
 
   expect(screen.getByText('Jest Wagner')).toBeDefined();
@@ -28,11 +31,13 @@ test('MultiIdentityPicker - use current Identity if no one can loaded', async ()
 
 test('MultiIdentityPicker - load and display Identity', async () => {
 
-    // Identities Field Value is set to h2floh@h2floh.net
-    mockGetFieldValue.mockReturnValue("[\"h2floh@h2floh.net\"]");
+    // Identities Field Value is set to git@h2floh.net
+    mockGetFieldValue.mockReturnValue("[\"git@h2floh.net\"]");
 
+    // Render the MultiIdentityPicker control
     render(<MultiIdentityPicker />);
 
+    // Check if the user associated to git@h2floh.net is displayed
     await waitFor(() => screen.getByText('Florian Wagner'));
 
     expect(screen.getByText('Florian Wagner')).toBeDefined();
@@ -50,8 +55,8 @@ test('MultiIdentityPicker - invalid Identity input', async () => {
 
 test('MultiIdentityPicker - On Identity Removed', async () => {
 
-    // Identities Field Value is set to h2floh@h2floh.net, gdhong@h2floh.net
-    mockGetFieldValue.mockReturnValue("[\"h2floh@h2floh.net\",\"gdhong@h2floh.net\"]");
+    // Identities Field Value is set to git@h2floh.net, gdhong@h2floh.net
+    mockGetFieldValue.mockReturnValue("[\"git@h2floh.net\",\"gdhong@h2floh.net\"]");
 
     render(<MultiIdentityPicker />);
 
