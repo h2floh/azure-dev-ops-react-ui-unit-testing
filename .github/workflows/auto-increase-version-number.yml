@@ -1,0 +1,31 @@
+name: Auto Increase Extension Version Number
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  incversion:
+    name: Increment Version
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Initializes everything for tfx cli to run correctly
+    - name: Initialize npm
+      run: |
+        npm install
+        npm run build
+    
+    - name: Increase Extension Version
+      run: npx tfx extension create --rev-version --manifest-globs azure-devops-extension.json src/**/*.json
+
+    - name: Commit and push Change
+      uses: EndBug/add-and-commit@v7
+      add: 'azure-devops-extension.json'
+      message: 'bumping patch version number'
+      push: true
+      signoff: true
+      
