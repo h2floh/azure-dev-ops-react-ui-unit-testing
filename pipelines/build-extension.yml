@@ -15,7 +15,7 @@ jobs:
     
     pool:
       name: Azure Pipelines
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
 
     container: mcr.microsoft.com/vscode/devcontainers/typescript-node:0-14
   
