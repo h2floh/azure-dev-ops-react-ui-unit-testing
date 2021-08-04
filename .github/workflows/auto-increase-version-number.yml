@@ -23,8 +23,8 @@ jobs:
       run: npx tfx extension create --rev-version --manifest-globs azure-devops-extension.json src/**/*.json
 
     - name: Commit and push Change
+      uses: EndBug/add-and-commit@v7
       with:
-        uses: EndBug/add-and-commit@v7
         add: 'azure-devops-extension.json'
         message: 'bumping patch version number'
         push: true
