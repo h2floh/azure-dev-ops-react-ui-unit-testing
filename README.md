@@ -78,4 +78,3 @@ There are following 5 challenges for the unit test:
 to build test and deploy extensions to a Staging and Production stage.
 - We [provide](dummyrestapi) a dummy Rest API for the ValidationLink Table extension
 which showcases the authentication setting to consume the AppToken
- 
