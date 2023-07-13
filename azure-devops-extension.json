@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "azure-dev-ops-react-ui-unit-testing",
     "publisher": "nonexistingpublisher",
-    "version": "0.1.25",
+    "version": "0.1.26",
     "name": "Azure DevOps ReactUI Testing",
     "description": "Showcasing Azure DevOps React based UI Extension unit testing for an advanced example.",
     "categories": [
