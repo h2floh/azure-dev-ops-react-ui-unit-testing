@@ -51,7 +51,7 @@
     "sass-loader": "^11.0.1",
     "shelljs": "^0.8.5",
     "style-loader": "^2.0.0",
-    "tfx-cli": "^0.10.0",
+    "tfx-cli": "^0.15.0",
     "trim-newlines": ">=3.0.1",
     "ts-jest": "^26.1.1",
     "ts-loader": "^8.0.17",
