@@ -22,6 +22,7 @@ export function getHost(): IHostContext {
     return {
         id: "react-unit-test",
         name: "react-unit-test",
+        isHosted: false,
         serviceVersion: "mockedVersion",
         type: 1
     }
