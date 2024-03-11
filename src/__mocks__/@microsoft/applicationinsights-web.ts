@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
 /**
  * Accessor mocks to verify content of log messages in the unit tests
  */
@@ -13,7 +15,6 @@ export class ApplicationInsights {
     /**
      * Mocked loadAppInsights
      */
-    // tslint:disable-next-line: no-empty
     public loadAppInsights(): void {}
 
     /**

@@ -31,14 +31,14 @@ export function getHost(): IHostContext {
  * Mocking SDK's init function to return
  * resolve(successful execution/init) to activate the .then block
  */
-export function init() : Promise<void> {
-    return new Promise((resolve, reject) => resolve());
+export function init(): Promise<void> {
+    return new Promise((resolve) => resolve());
 }
 
 /**
  * Mocking SDK.notifyLoadSucceeded does nothing
  */
-// tslint:disable-next-line: no-empty
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export function notifyLoadSucceeded() {}
 
 /**
@@ -73,7 +73,7 @@ export let spyWorkItemCallBackAccessor: workItemCallBackType;
  * Mocking SDK.register()
  * Assign the callback methods (parameter instance) passed from the controls to the spy
  */
-export function register (instanceId: string, instance: workItemCallBackType) {
+export function register (_instanceId: string, instance: workItemCallBackType) {
     spyWorkItemCallBackAccessor = instance;
 }
 
@@ -96,7 +96,7 @@ export function getConfiguration() {
             LoggingLevel: "0",
             baseEndpointURL: "https://localhost:5000",
             DevOpsBaseUrl: "https://dev.azure.com/",
-            RepositoryId: mockRepositoryId(),
+            RepositoryId: String(mockRepositoryId()),
             ProjectName: "react-unit-test",
             BranchName: "master",
             FieldName: "myField"
@@ -118,7 +118,8 @@ export const mockSetError = jest.fn(); // .setError()
 /**
  * Mocking IdentityService.SearchIdentitiesAsync()
  */
-export function mockSearchIdentitiesAsync(query: string, identityTypes?: string[], operationScopes?: string[], queryTypeHint?: string, options?: any, filterIdentity?: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function mockSearchIdentitiesAsync(query: string, _identityTypes?: string[], _operationScopes?: string[], _queryTypeHint?: string, _options?: any, _filterIdentity?: any) {
 
     let result: any = [];
 
@@ -154,6 +155,7 @@ export function mockSearchIdentitiesAsync(query: string, identityTypes?: string[
 export function getService(contributionId: string) {
 
     switch(contributionId) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
         case IdentityServiceIds.IdentityService:
             return new Promise((resolve) => resolve({
                     // only need to return mocks for the
@@ -161,6 +163,7 @@ export function getService(contributionId: string) {
                     searchIdentitiesAsync: mockSearchIdentitiesAsync
                     }
                 ));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
         case WorkItemTrackingServiceIds.WorkItemFormService:
             return {
                 // only need to return mocks for the

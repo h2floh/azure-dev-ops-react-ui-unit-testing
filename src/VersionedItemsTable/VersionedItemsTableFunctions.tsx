@@ -22,7 +22,7 @@ export interface IStatusIndicatorData {
  * @param {string} status Link Status as String (broken | valid)
  * @returns {IStatusIndicatorData} StatusIndicator Instance based on status
  */
-export function getLinkStatusIndicatorData(status: string): IStatusIndicatorData {
+export function getLinkStatusIndicatorData(status: LinkStatus): IStatusIndicatorData {
     status = status || "";
     const indicatorData: IStatusIndicatorData = {
         label: "OK",

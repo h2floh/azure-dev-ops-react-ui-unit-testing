@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /** Special Mocking needed:
  *
  * azure-devops-extension-api/Git Package combines multiple files and exports
@@ -19,6 +20,7 @@ export const mockGetItems = jest.fn().mockReturnValue([]);
  */
 export class GitRestClient {
     // tslint:disable-next-line: no-empty
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     constructor(options: IVssRestClientOptions) {
     }
 
@@ -42,7 +44,7 @@ export class GitRestClient {
 
         if (repositoryId === "gitrepo") {
                 // return value of mockGetItems if the repositoryId is 'gitrepo'
-                return new Promise((resolve) => resolve(mockGetItems()));
+                return new Promise((resolve) => resolve(mockGetItems() as GitItem[]));
             } else {
                 // for any other repositoryId throw an Error (for error testing)
                 throw new Error(`Repository does not exists: ${repositoryId}`)
