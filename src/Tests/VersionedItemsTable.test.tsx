@@ -5,7 +5,7 @@
 jest.mock('azure-devops-extension-api/Common/RestClientBase');
 
 // Imports
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom'
 import {
     fireEvent,
     render,
