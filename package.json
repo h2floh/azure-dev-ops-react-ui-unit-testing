@@ -26,7 +26,7 @@
     "test": "env TEST_REPORT_FILENAME=test-results.xml jest --verbose"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-react-js": "^3.0.0",
+    "@microsoft/applicationinsights-react-js": "^3.1.5",
     "@microsoft/applicationinsights-web": "^2.5.5",
     "azure-devops-extension-api": "^2.223.0",
     "azure-devops-extension-sdk": "^2.0.11",
