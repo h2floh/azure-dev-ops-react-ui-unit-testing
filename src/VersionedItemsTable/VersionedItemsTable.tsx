@@ -411,7 +411,7 @@ export class VersionedItemsTable extends React.Component<{}> {
                     contentClassName="fontWeightSemiBold font-weight-semibold fontSizeS font-size-s scroll-hidden"
                 >
                     <TextField
-                    value={tableItem.comment}
+                    value={tableItem.comment.value}
                     onChange={(e, newValue) => (tableItem.comment.value = newValue)}
                     placeholder="Comment"
                     width={TextFieldWidth.standard}

@@ -1,4 +1,8 @@
 /**
+ * @jest-environment jsdom
+ */
+
+/**
  * Mocking RestClientBase class used in RestAPIClient
  * Needs to be mocked before VersionedItemsTable import
  */
@@ -205,7 +209,7 @@ describe('VersionedItemsTable', () => {
         // Wait for the button to be rerendered
         await waitFor(() => screen.queryAllByText('Add VersionedItem Link'));
         // assert that the button is now enabled
-        expect(screen.getByRole('button').getAttribute('aria-disabled')).toEqual("false");
+        expect(screen.getByRole('button').getAttribute('aria-disabled')).toEqual(null);
 
     });
 
