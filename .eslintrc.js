@@ -27,7 +27,6 @@ module.exports = {
     "plugins": [
         "eslint-plugin-import",
         "@typescript-eslint",
-        "@typescript-eslint/tslint"
     ],
     "root": true,
     "rules": {
@@ -242,14 +241,5 @@ module.exports = {
         ],
         "use-isnan": "error",
         "valid-typeof": "off",
-        "@typescript-eslint/tslint/config": [
-            "error",
-            {
-                "rules": {
-                    "completed-docs": true,
-                    "import-spacing": true
-                }
-            }
-        ]
     }
 };
