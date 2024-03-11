@@ -17,12 +17,12 @@ jobs:
       name: Azure Pipelines
       vmImage: 'ubuntu-latest'
 
-    container: mcr.microsoft.com/vscode/devcontainers/typescript-node:0-14
+    container: mcr.microsoft.com/vscode/devcontainers/typescript-node:20
   
     steps:
 
     # Install dependencies  
-    - script: npm install
+    - script: npm install --legacy-peer-deps
       displayName: Install Dependencies
 
     # Linting TS(X) 

@@ -22,7 +22,9 @@ export class RestClientBase {
         // call getAuthorizationHeader
         options.authTokenProvider?.getAuthorizationHeader().then(
             (value) => spyAuthorizationHeader = value
-        );
+        ).catch(() => {
+            // handle error here
+        });
     }
 
     /**
@@ -40,9 +42,10 @@ export class RestClientBase {
      * @param requestParams request options
      * @returns Promise for the response
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected beginRequest<T>(requestParams: RestClientRequestParams): Promise<T> {
         const result: any = [];
-        return new Promise((resolve) => resolve(result));
+        return new Promise((resolve) => resolve(result as T));
     }
 
     /**
@@ -64,7 +67,7 @@ export class RestClientBase {
         // for GET requests depending on the requested service
         // (identified via the URL) return a different mocked result
         if (requestUrl.match(/\/api\/versioneditem\/\d+\?api-version=/) && requestParams.method === "GET") {
-            result = mockGetVersionedItemLink();
+            result = mockGetVersionedItemLink() as T;
         }
         // for POST requests call a mock to be able to be able to
         // check the request payload in the unit test
@@ -72,6 +75,6 @@ export class RestClientBase {
             mockPostRequests(requestUrl, requestParams);
         }
 
-        return new Promise((resolve) => resolve(result));
+        return new Promise((resolve) => resolve(result as T));
     }
 }

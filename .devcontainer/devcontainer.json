@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.128.0/containers/typescript-node-14
 {
-	"name": "Node.js 14 & TypeScript",
+	"name": "Node.js 20 & TypeScript",
 	"dockerFile": "Dockerfile",
 
 	// Set *default* container specific settings.json values on container create.
@@ -13,7 +13,8 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint",
 		"ms-vscode.vscode-typescript-tslint-plugin",
-		"DavidAnson.vscode-markdownlint"
+		"DavidAnson.vscode-markdownlint",
+		"GitHub.copilot-chat"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

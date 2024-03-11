@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/ban-types */
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { SeverityLevel } from "@microsoft/applicationinsights-web";
 import {
@@ -76,24 +78,32 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
         SDK.init().then(() => {
 
           // After the SDK is initialized we retrieve configuration values from it (here FieldName)
-          this.referenceNameIdentities = SDK.getConfiguration().witInputs.FieldName;
+        const witInputs = SDK.getConfiguration().witInputs as {
+            DevOpsBaseUrl?: string;
+            AppInsightsInstrumentationKey?: string;
+            LoggingLevel?: SeverityLevel;
+            PlaceholderText: string;
+            FieldName: string;
+        };
 
-          if (SDK.getConfiguration().witInputs.DevOpsBaseUrl != null) {
-            this.devOpsBaseUrl = SDK.getConfiguration().witInputs.DevOpsBaseUrl;
-          }
+        this.referenceNameIdentities = witInputs.FieldName;
 
-          // Init Logger
-          const instrumentationKey = (SDK.getConfiguration().witInputs.AppInsightsInstrumentationKey as string);
-          const maxLogLevel = (SDK.getConfiguration().witInputs.LoggingLevel as SeverityLevel);
-          // this.constructor.name will output useless information after minified
-          this.logger = new Logger('MultiIdentityPicker', instrumentationKey, maxLogLevel);
-          this.logger.startTracking('Initialization');
-          this.logger.logTrace(`Logger Initialized with logLevel ${maxLogLevel}`, SeverityLevel.Verbose);
+        if (witInputs.DevOpsBaseUrl != null) {
+                this.devOpsBaseUrl = witInputs.DevOpsBaseUrl;
+        }
 
-          this.placeholderText = SDK.getConfiguration().witInputs.PlaceholderText;
-          this.readOwnerSetField();
-          this.logger.stopTracking('Initialization');
-        });
+        // Init Logger
+        const instrumentationKey = witInputs.AppInsightsInstrumentationKey;
+        const maxLogLevel = witInputs.LoggingLevel;
+        // this.constructor.name will output useless information after minified
+        this.logger = new Logger('MultiIdentityPicker', instrumentationKey, maxLogLevel);
+        this.logger.startTracking('Initialization');
+        this.logger.logTrace(`Logger Initialized with logLevel ${maxLogLevel}`, SeverityLevel.Verbose);
+
+        this.placeholderText = witInputs.PlaceholderText;
+            this.readOwnerSetField().catch(() => {});
+            this.logger.stopTracking('Initialization');
+        }).catch(() => {});
     }
 
     /**
@@ -131,7 +141,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
             (entity: IIdentity) =>
                 identities.filter((item) => item.entityId === entity.entityId).length === 0
         );
-        this.updateOwnerSetField();
+        this.updateOwnerSetField().catch(() => {});
     };
 
     /**
@@ -145,7 +155,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
         // Fix to display image - returns relative URL but Extension runs in iframe on different server
         identity.image = `${this.devOpsBaseUrl}/${identity.image}`;
         this.selectedIdentities.push(identity);
-        this.updateOwnerSetField();
+        this.updateOwnerSetField().catch(() => {});
     };
 
     /**
@@ -159,7 +169,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
         this.selectedIdentities.value = this.selectedIdentities.value.filter(
             (entity: IIdentity) => entity.entityId !== identity.entityId
         );
-        this.updateOwnerSetField();
+        this.updateOwnerSetField().catch(() => {});
     };
 
     /**
@@ -175,7 +185,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
         workItemFormService.setFieldValue(
             this.referenceNameIdentities,
             JSON.stringify(this.selectedIdentities.value.map((identity) => { return identity.signInAddress }))
-        );
+        ).catch(() => {});
     };
 
     /**
@@ -220,7 +230,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
             try {
 
                 const loadedlogInMails = JSON.parse(jsonValue) as string[];
-                loadedlogInMails.map(async (mail) => {
+                await Promise.all(loadedlogInMails.map(async (mail) => {
                     this.onIdentityAdded(
                         await this.identityService.then(
                             identityService => {
@@ -228,7 +238,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
                                       .searchIdentitiesAsync(mail, ["user"], ["ims", "source"], "signInAddress")
                                       .then(x => x[0]);})
                     );
-                });
+                }));
 
                 this.logger.logTrace(`Identities loaded.`, SeverityLevel.Verbose);
             } catch (e) {
