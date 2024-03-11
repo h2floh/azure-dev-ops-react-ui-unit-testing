@@ -187,7 +187,7 @@ export class VersionedItemsTable extends React.Component<{}> {
             this.logger.logTrace(`Dropdown Box Items: ${JSON.stringify(this.gitDropdownBoxItems)}`, SeverityLevel.Verbose);
 
         } catch (e) {
-            this.logger.logException(e, SeverityLevel.Critical);
+            this.logger.logException(e as Error, SeverityLevel.Critical);
         }
 
     }
@@ -211,7 +211,7 @@ export class VersionedItemsTable extends React.Component<{}> {
                         await this.workItemFormService.getId()
                     );
                 } catch (e) {
-                    this.logger.logException(e, SeverityLevel.Error);
+                    this.logger.logException(e as Error, SeverityLevel.Error);
                 }
             }
 

@@ -60,7 +60,7 @@ class RestAPIClient extends RestClientBase {
                                        success: true}, SeverityLevel.Information);
             return result;
         } catch (e) {
-            this.logger.logException(e, SeverityLevel.Error);
+            this.logger.logException(e as Error, SeverityLevel.Error);
             this.logger.logDependency({id: 'getVersionedItemLinks',
                                        target: endpointUrl,
                                        type: 'RestAPI',
@@ -99,7 +99,7 @@ class RestAPIClient extends RestClientBase {
                                        duration: callDuration.ms,
                                        success: true}, SeverityLevel.Information);
         } catch (e) {
-            this.logger.logException(e, SeverityLevel.Error);
+            this.logger.logException(e as Error, SeverityLevel.Error);
             this.logger.logDependency({id: 'deleteVersionedItemLinks',
                                        target: endpointUrl,
                                        type: 'RestAPI',
@@ -137,7 +137,7 @@ class RestAPIClient extends RestClientBase {
                                            duration: callDuration.ms,
                                            success: true}, SeverityLevel.Information);
         } catch (e) {
-            this.logger.logException(e, SeverityLevel.Error);
+            this.logger.logException(e as Error, SeverityLevel.Error);
             this.logger.logDependency({id: 'updateVersionedItemLink',
                                        target: endpointUrl,
                                        type: 'RestAPI',
