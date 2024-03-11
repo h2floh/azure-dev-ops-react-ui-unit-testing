@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/ban-types */
 import { withAITracking } from "@microsoft/applicationinsights-react-js";
 import { SeverityLevel } from "@microsoft/applicationinsights-web";
 import { getClient } from "azure-devops-extension-api/Common";
@@ -140,10 +144,10 @@ export class VersionedItemsTable extends React.Component<{}> {
             );
 
             await this.loadLinks();
-            SDK.notifyLoadSucceeded();
+            SDK.notifyLoadSucceeded().catch(() => {});
             this.logger.stopTracking('Initialization');
 
-        });
+        }).catch(() => {});
     }
 
     /**
@@ -279,10 +283,7 @@ export class VersionedItemsTable extends React.Component<{}> {
                 <div className="flex-column">
                     <div>
                     <Observer disabledValue={this.addVersionedItemLinkDisabledChanged}>
-                        {(observableProps: {
-                            /** disabledValue type declaration */
-                            disabledValue: boolean
-                        }) => (
+                        {() => (
                             <Button
                                 text="Add VersionedItem Link"
                                 iconProps={{ iconName: "Add" }}
@@ -369,7 +370,7 @@ export class VersionedItemsTable extends React.Component<{}> {
     private sortFunctions = [
         // Sort on Name column
         (item1: ILinkItem, item2: ILinkItem) => {
-            return item1.path.localeCompare(item2.path!);
+            return item1.path.localeCompare(item2.path);
         }
     ];
 
@@ -437,8 +438,6 @@ export class VersionedItemsTable extends React.Component<{}> {
         tableColumn: ITableColumn<ILinkItem>,
         tableItem: ILinkItem
     ): JSX.Element {
-
-        const tooltip = tableItem.path;
 
         if (tableItem.status === LinkStatus.new) {
 
@@ -546,7 +545,7 @@ export class VersionedItemsTable extends React.Component<{}> {
                     tableColumn={tableColumn}
                     line1={<Icon ariaLabel="Save icon" iconName="Save" onClick={() => this.saveNewVersionedItem(tableItem)}/>
                     }
-                    line2={<Icon ariaLabel="Delete icon" iconName="Delete" onClick={() => this.deleteVersionedItem(tableItem)}/>}
+                    line2={<Icon ariaLabel="Delete icon" iconName="Delete" onClick={() => this.deleteVersionedItem(tableItem).catch(() => {})}/>}
                 />
             );
         }
@@ -589,7 +588,7 @@ export class VersionedItemsTable extends React.Component<{}> {
         this.logger.logTrace(`New Versioned Item: ${JSON.stringify(newVersionedItem)}`, SeverityLevel.Verbose);
         // Save to REST API
         newVersionedItem.status = LinkStatus.ok;
-        this.persistVersionedItem(newVersionedItem);
+        this.persistVersionedItem(newVersionedItem).catch(() => {});
     };
 
     /**
@@ -600,7 +599,7 @@ export class VersionedItemsTable extends React.Component<{}> {
     saveVersionedItem = (versionedItem: ILinkItem) => {
         this.logger.logTrace(`Versioned Item: ${JSON.stringify(versionedItem)}`, SeverityLevel.Verbose);
         // Save to REST API
-        this.persistVersionedItem(versionedItem);
+        this.persistVersionedItem(versionedItem).catch(() => {});
     };
 
     /**
@@ -690,6 +689,7 @@ export class VersionedItemsTable extends React.Component<{}> {
      * @returns {string} Az DO Web UI Link to Azure Git Repo File
      */
     private getGitWebUIUrl(path: string): string {
+        // eslint-disable-next-line max-len
         return `https://dev.azure.com/${SDK.getHost().name}/${(SDK.getConfiguration().witInputs.ProjectName as string)}/_git/${(SDK.getConfiguration().witInputs.RepositoryId as string)}?path=${encodeURIComponent(path)}&version=GB${(SDK.getConfiguration().witInputs.BranchName as string)}`;
     }
 

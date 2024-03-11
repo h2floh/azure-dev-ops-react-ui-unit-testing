@@ -1,7 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable import/order */ // Otherwise Mocks are not working
 /**
  * Mocking RestClientBase class used in RestAPIClient
  * Needs to be mocked before VersionedItemsTable import
@@ -70,9 +71,11 @@ describe('VersionedItemsTable', () => {
         ]);
         mockGetVersionedItemLink.mockReturnValue([
             // Returned by GitRepo
-            { "workItemId": 999, "path": "/python/somescript.py", "comment": "test", "linkStatus": "OK", "createdBy": "h2floh@h2floh.net", "modifiedBy": "h2floh@h2floh.net", "modifiedOn": "2020-07-10T08:45:52.167Z" },
+            { "workItemId": 999, "path": "/python/somescript.py", "comment": "test", "linkStatus": "OK",
+            "createdBy": "h2floh@h2floh.net", "modifiedBy": "h2floh@h2floh.net", "modifiedOn": "2020-07-10T08:45:52.167Z" },
             // Dangling/Broken Link
-            { "workItemId": 999, "path": "/python/asdfasdf.py", "comment": "test", "linkStatus": "OK", "createdBy": "h2floh@h2floh.net", "modifiedBy": "h2floh@h2floh.net", "modifiedOn": "2020-07-10T08:45:52.167Z" }
+            { "workItemId": 999, "path": "/python/asdfasdf.py", "comment": "test", "linkStatus": "OK",
+            "createdBy": "h2floh@h2floh.net", "modifiedBy": "h2floh@h2floh.net", "modifiedOn": "2020-07-10T08:45:52.167Z" }
         ]);
 
         render(<VersionedItemsTable />);
@@ -204,7 +207,7 @@ describe('VersionedItemsTable', () => {
         // the save button of the Work Item by setting isNew to false
         // and callback onSaved event with a assigned WorkItemId
         mockIsNew.mockReturnValue(false);
-        spyWorkItemCallBackAccessor().onSaved({id: 800});
+        spyWorkItemCallBackAccessor().onSaved({id: 800}).catch(() => {});
 
         // Wait for the button to be rerendered
         await waitFor(() => screen.queryAllByText('Add VersionedItem Link'));
@@ -282,7 +285,8 @@ describe('VersionedItemsTable', () => {
         ]);
         mockGetVersionedItemLink.mockReturnValue([
             // Returned by GitRepo
-            { "workItemId": 701, "path": "/python/somescript2.py", "comment": "test", "linkStatus": "OK", "createdBy": "h2floh@h2floh.net", "modifiedBy": "h2floh@h2floh.net", "modifiedOn": "2020-07-10T08:45:52.167Z" },
+            { "workItemId": 701, "path": "/python/somescript2.py", "comment": "test", "linkStatus": "OK",
+             "createdBy": "h2floh@h2floh.net", "modifiedBy": "h2floh@h2floh.net", "modifiedOn": "2020-07-10T08:45:52.167Z" },
         ]);
 
         render(<VersionedItemsTable />);
@@ -298,7 +302,7 @@ describe('VersionedItemsTable', () => {
          */
         const deleteButton = screen.getByLabelText(/Delete icon/);
         // Select unique attribute
-        const item = screen.getByText("/python/somescript2.py");
+        screen.getByText("/python/somescript2.py");
         // Press save
         fireEvent.click(deleteButton);
 
@@ -365,6 +369,7 @@ describe('VersionedItemsTable', () => {
         await waitFor(() => screen.getAllByText('Link'));
 
         // Assert that the exception was logged
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         expect(mockTrackException.mock.calls[0][0]).toEqual({"exception": getItemsError});
     });
 

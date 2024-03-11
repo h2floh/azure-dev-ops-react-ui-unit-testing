@@ -10,8 +10,8 @@ import {
     waitFor
 } from '@testing-library/react';
 import React from 'react';
-import MultiIdentityPicker from '../MultiIdentityPicker/MultiIdentityPicker'
 import { mockGetFieldValue } from '../__mocks__/azure-devops-extension-sdk'
+import MultiIdentityPicker from '../MultiIdentityPicker/MultiIdentityPicker'
 
 // AzDO related Mocks (implementations /src/__mocks__)
 // Extension related Mocks
@@ -49,13 +49,15 @@ test('MultiIdentityPicker - load and display Identity', async () => {
 
 test('MultiIdentityPicker - invalid Identity input', async () => {
 
-    // Identities Field Value is set to invalid
-    mockGetFieldValue.mockReturnValue("asdfasdf");
+  // Identities Field Value is set to invalid
+  mockGetFieldValue.mockReturnValue("asdfasdf");
 
-    render(<MultiIdentityPicker />);
+  render(<MultiIdentityPicker />);
 
+  await waitFor(() => {
     expect(screen.getByLabelText('Add people')).toBeDefined();
   });
+});
 
 test('MultiIdentityPicker - On Identity Removed', async () => {
 
