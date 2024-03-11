@@ -31,7 +31,7 @@ export class Logger {
         this.controlName = controlname;
         if (instrumentationKey !== undefined && logLevel !== undefined)
         {
-            const browserHistory = createBrowserHistory({ basename: '' });
+            const browserHistory = createBrowserHistory();
             reactPlugin = new ReactPlugin();
             appInsights = new ApplicationInsights({ config: {
                 instrumentationKey,
