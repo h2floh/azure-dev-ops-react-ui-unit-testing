@@ -19,7 +19,7 @@ jobs:
     # Initializes everything for tfx cli to run correctly
     - name: Initialize npm
       run: |
-        npm install
+        npm install --legacy-peer-deps
         npm run build
     
     - name: Increase Extension Version
