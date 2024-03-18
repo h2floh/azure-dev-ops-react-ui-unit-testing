@@ -48,7 +48,7 @@
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
     "@typescript-eslint/parser": "^7.1.1",
     "base64-inline-loader": "^2.0.1",
-    "copy-webpack-plugin": "^9.1.0",
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.8.1",
     "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.29.1",
