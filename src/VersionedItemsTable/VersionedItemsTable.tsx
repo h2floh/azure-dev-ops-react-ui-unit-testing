@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/ban-types */
 import { withAITracking } from "@microsoft/applicationinsights-react-js";
 import { SeverityLevel } from "@microsoft/applicationinsights-web";
 import { getClient } from "azure-devops-extension-api/Common";
@@ -58,7 +57,7 @@ import { ILinkItem, LinkStatus } from "./VersionedItemsTableTypes";
  * VersionedItemsTable can create a link to a specific Azure Git Repo file called
  * VersionedItemLink.
  */
-export class VersionedItemsTable extends React.Component<{}> {
+export class VersionedItemsTable extends React.Component<object> {
 
     /** Instance of Work Item Form Service to access data of current Work Item */
     private workItemFormService : IWorkItemFormService | undefined;
@@ -75,7 +74,7 @@ export class VersionedItemsTable extends React.Component<{}> {
     /** Logging instance */
     private logger: Logger;
     /** File List of Repository/Branch for Dropdown box */
-    private gitDropdownBoxItems: IListBoxItem<{}>[] = [];
+    private gitDropdownBoxItems: IListBoxItem<object>[] = [];
     /** Full Git Item List */
     private gitItems: GitItem[] = [];
     /** Observable for New Versioned Item Link Disable Property */
@@ -89,7 +88,7 @@ export class VersionedItemsTable extends React.Component<{}> {
      * @param {} props React properties
      * @returns {VersionedItemsTable} VersionedItemsTable Object
      */
-    constructor(props: {}) {
+    constructor(props: object) {
         super(props);
         // Dummy because we have to initialize now
         this.logger = new Logger(this.constructor.name, undefined,undefined);
@@ -675,7 +674,7 @@ export class VersionedItemsTable extends React.Component<{}> {
      * @param {React.SyntheticEvent<HTMLElement, Event>} event actual event
      * @param {IListBoxItem<{}>} item selected File
      */
-    onSelect (row: ILinkItem, event: React.SyntheticEvent<HTMLElement, Event>, item: IListBoxItem<{}>) : void {
+    onSelect (row: ILinkItem, event: React.SyntheticEvent<HTMLElement, Event>, item: IListBoxItem<object>) : void {
         this.logger.logTrace(`Dropdown selected ${JSON.stringify(item)} ${JSON.stringify(row)}`, SeverityLevel.Verbose);
 
         row.path = item.text!;
