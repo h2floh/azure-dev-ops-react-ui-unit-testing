@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/ban-types */
 import { withAITracking } from '@microsoft/applicationinsights-react-js';
 import { SeverityLevel } from "@microsoft/applicationinsights-web";
 import {
@@ -37,7 +36,7 @@ interface MultiIdentityPickerState {
  * - Can display Identities saved in a work items text field
  * - Can add additional Identies based on Standard Identity picker and save to text field
  */
-export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPickerState> {
+export class MultiIdentityPicker extends React.Component<object, MultiIdentityPickerState> {
     /** Identity Service for Picker */
     private identityService: Promise<IVssIdentityService>;
     /** Current selected Identities as React Observable */
@@ -57,7 +56,7 @@ export class MultiIdentityPicker extends React.Component<{}, MultiIdentityPicker
      * @param {} props React properties
      * @returns {MultiIdentityPicker} MultiIdentityPicker Object
      */
-    constructor(props: {}) {
+    constructor(props: object) {
         super(props);
         this.state = {
             pickerProvider: new PeoplePickerProvider()
