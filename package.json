@@ -67,7 +67,7 @@
     "ts-jest": "^29.2.4",
     "ts-loader": "^9.5.0",
     "ts-mockito": "^2.6.1",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "underscore": ">=1.13.6",
     "validator": "^13.12.0",
     "webpack": "^5.93.0",
