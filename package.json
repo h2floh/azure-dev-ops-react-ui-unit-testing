@@ -26,8 +26,8 @@
     "test": "env TEST_REPORT_FILENAME=test-results.xml jest --verbose"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-react-js": "^17.3.3",
-    "@microsoft/applicationinsights-web": "^3.3.3",
+    "@microsoft/applicationinsights-react-js": "^17.3.5",
+    "@microsoft/applicationinsights-web": "^3.3.5",
     "azure-devops-extension-api": "^4.246.0",
     "azure-devops-extension-sdk": "^4.0.2",
     "azure-devops-ui": "^2.251.0",
@@ -35,7 +35,7 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.24.7",
     "@eslint/js": "^9.1.1",
@@ -46,7 +46,7 @@
     "@types/react-dom": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^8.8.1",
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
-    "@typescript-eslint/parser": "^8.19.1",
+    "@typescript-eslint/parser": "^8.24.1",
     "base64-inline-loader": "^2.0.1",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^7.1.2",
@@ -64,7 +64,7 @@
     "style-loader": "^4.0.0",
     "tfx-cli": "^0.17.0",
     "trim-newlines": ">=5.0.0",
-    "ts-jest": "^29.2.5",
+    "ts-jest": "^29.2.6",
     "ts-loader": "^9.5.0",
     "ts-mockito": "^2.6.1",
     "typescript": "^5.7.3",
