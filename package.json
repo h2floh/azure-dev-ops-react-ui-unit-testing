@@ -30,7 +30,7 @@
     "@microsoft/applicationinsights-web": "^3.3.6",
     "azure-devops-extension-api": "^4.246.0",
     "azure-devops-extension-sdk": "^4.0.2",
-    "azure-devops-ui": "^2.251.0",
+    "azure-devops-ui": "^2.255.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
