@@ -454,7 +454,7 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden flex-grow">
-                                <Tooltip overflowOnly={true}>
+                                <Tooltip overflowOnly={true} text="">
                                     <Dropdown
                                         className="dropdown"
                                         placeholder="Select a file"
@@ -492,12 +492,13 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden">
-                                <Tooltip overflowOnly={true}>
+                                <Tooltip overflowOnly={true} text="">
                                     <Link
                                         className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
                                         excludeTabStop
                                         href={tableItem.webUIUrl}
                                         target="_blank"
+                                        text={tableItem.path}
                                     >
                                         <span className="text-ellipsis">{tableItem.path}</span>
                                     </Link>

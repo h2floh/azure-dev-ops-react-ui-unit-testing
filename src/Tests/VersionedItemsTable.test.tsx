@@ -11,13 +11,8 @@ jest.mock('azure-devops-extension-api/Common/RestClientBase');
 
 // Imports
 import '@testing-library/jest-dom'
-import {
-    fireEvent,
-    render,
-    screen,
-    waitFor,
-    waitForElementToBeRemoved
-} from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen, waitFor, waitForElementToBeRemoved, fireEvent } from '@testing-library/dom';
 import { RestClientRequestParams } from 'azure-devops-extension-api/Common/RestClientBase';
 import React from 'react';
 import { VersionedItemLink } from '../Shared/RestAPIClient/VersionedItemLink';
