@@ -454,14 +454,12 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden flex-grow">
-                                <Tooltip overflowOnly={true} text="">
-                                    <Dropdown
-                                        className="dropdown"
-                                        placeholder="Select a file"
-                                        items={this.gitDropdownBoxItems}
-                                        onSelect={this.onSelect.bind(this, tableItem)}
-                                    />
-                                </Tooltip>
+                                <Dropdown
+                                    className="dropdown"
+                                    placeholder="Select a file"
+                                    items={this.gitDropdownBoxItems}
+                                    onSelect={this.onSelect.bind(this, tableItem)}
+                                />
                             </div>
                         </span>
                     }
@@ -492,17 +490,14 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden">
-                                <Tooltip overflowOnly={true} text="">
-                                    <Link
-                                        className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
-                                        excludeTabStop
-                                        href={tableItem.webUIUrl}
-                                        target="_blank"
-                                        text={tableItem.path}
-                                    >
-                                        <span className="text-ellipsis">{tableItem.path}</span>
-                                    </Link>
-                                </Tooltip>
+                                <Link
+                                    className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
+                                    excludeTabStop
+                                    href={tableItem.webUIUrl}
+                                    target="_blank"
+                                    title={tableItem.path}
+                                />
+                                <span className="text-ellipsis">{tableItem.path}</span>
                             </div>
                         </span>
                     }
