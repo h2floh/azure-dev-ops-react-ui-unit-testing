@@ -26,13 +26,13 @@
     "test": "env TEST_REPORT_FILENAME=test-results.xml jest --verbose"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-react-js": "^19.3.6",
-    "@microsoft/applicationinsights-web": "^3.3.6",
+    "@microsoft/applicationinsights-react-js": "^4.0.1",
+    "@microsoft/applicationinsights-web": "^3.3.8",
     "azure-devops-extension-api": "^4.246.0",
     "azure-devops-extension-sdk": "^4.0.2",
     "azure-devops-ui": "^2.255.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.27.2",
@@ -40,10 +40,10 @@
     "@babel/preset-typescript": "^7.27.0",
     "@eslint/js": "^9.1.1",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^12.1.5",
+    "@testing-library/react": "^15.0.0",
     "@types/jest": "^29.5.14",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.8.1",
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
     "@typescript-eslint/parser": "^8.32.1",
