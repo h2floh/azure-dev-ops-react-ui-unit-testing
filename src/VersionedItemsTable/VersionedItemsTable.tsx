@@ -39,7 +39,6 @@ import {
     TwoLineTableCell
 } from "azure-devops-ui/Table";
 import { TextField, TextFieldWidth } from "azure-devops-ui/TextField";
-import { Tooltip } from "azure-devops-ui/TooltipEx";
 import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
 import * as React from "react";
 import { showRootComponent } from "../Common";
@@ -454,14 +453,12 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden flex-grow">
-                                <Tooltip overflowOnly={true}>
-                                    <Dropdown
-                                        className="dropdown"
-                                        placeholder="Select a file"
-                                        items={this.gitDropdownBoxItems}
-                                        onSelect={this.onSelect.bind(this, tableItem)}
-                                    />
-                                </Tooltip>
+                                <Dropdown
+                                    className="dropdown"
+                                    placeholder="Select a file"
+                                    items={this.gitDropdownBoxItems}
+                                    onSelect={this.onSelect.bind(this, tableItem)}
+                                />
                             </div>
                         </span>
                     }
@@ -492,16 +489,14 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden">
-                                <Tooltip overflowOnly={true}>
-                                    <Link
-                                        className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
-                                        excludeTabStop
-                                        href={tableItem.webUIUrl}
-                                        target="_blank"
-                                    >
-                                        <span className="text-ellipsis">{tableItem.path}</span>
-                                    </Link>
-                                </Tooltip>
+                                <Link
+                                    className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
+                                    excludeTabStop
+                                    href={tableItem.webUIUrl}
+                                    target="_blank"
+                                    title={tableItem.path}
+                                />
+                                <span className="text-ellipsis">{tableItem.path}</span>
                             </div>
                         </span>
                     }
