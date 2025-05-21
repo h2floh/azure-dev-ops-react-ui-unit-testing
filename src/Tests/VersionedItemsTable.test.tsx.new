@@ -29,8 +29,6 @@ import { mockGetId, mockIsNew, spyWorkItemCallBackAccessor } from '../__mocks__/
 jest.mock('../Common');
 
 describe('VersionedItemsTable', () => {
-    // Increase timeout for all tests in this describe block
-    jest.setTimeout(30000);
 
     beforeEach(() => {
         // Reset related mocks
@@ -104,32 +102,20 @@ describe('VersionedItemsTable', () => {
         expect(screen.getAllByText('/python/somescript.py').length).toBe(1);
         expect(screen.getAllByText('The referenced file does no longer exist.').length).toBe(1);
 
-        // Wait for table sorting to take effect
+        // Test Sort feature
+        const tableHeader = screen.getByText('Link');
         await act(async () => {
-            // Use a polling approach inside act
-            let found = false;
-            let attempts = 0;
-            while (!found && attempts < 10) {
-                try {
-                    const links = screen.getAllByRole('link');
-                    // Check if links are available
-                    if (links.length > 0 && links[0].textContent) {
-                        found = true;
-                    }
-                } catch (e) {
-                    attempts++;
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                }
-            }
+            fireEvent.click(tableHeader);
+            await new Promise(resolve => setTimeout(resolve, 300));
         });
 
-        // Ensure links are properly ordered
-        const links = screen.getAllByRole('link');
-        expect(links[0].textContent).toEqual('/python/asdfasdf.py');
+        expect(screen.getAllByRole('link')[0].firstChild?.textContent).toEqual('/python/asdfasdf.py');
     });
 
 
     test('VersionedItemsTable - test VersionedItemLink Lifecycle', async () => {
+        // Increase timeout for this test
+        jest.setTimeout(15000);
 
         mockIsNew.mockResolvedValue(false);
         mockGetId.mockResolvedValue(997);
@@ -477,6 +463,8 @@ describe('VersionedItemsTable', () => {
 
 
     test('VersionedItemsTable - Rest API access error on Add VersionedLinkItem', async () => {
+        // Increase timeout for this test
+        jest.setTimeout(15000);
         
         mockHTTPError.mockReturnValue(true);
 
@@ -646,6 +634,8 @@ describe('VersionedItemsTable', () => {
 
 
     test('VersionedItemsTable - Rest API access error on Delete VersionedLinkItem', async () => {
+        // Increase timeout for this test
+        jest.setTimeout(15000);
 
         mockIsNew.mockResolvedValue(false);
         mockGetId.mockResolvedValue(701);
@@ -736,6 +726,8 @@ describe('VersionedItemsTable', () => {
     });
 
     test('VersionedItemsTable - Add/Delete VersionedItemLink without save', async () => {
+        // Increase timeout for this test
+        jest.setTimeout(15000);
 
         mockIsNew.mockResolvedValue(false);
         mockGetId.mockResolvedValue(777);
