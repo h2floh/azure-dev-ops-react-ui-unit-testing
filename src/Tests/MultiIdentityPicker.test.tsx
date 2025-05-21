@@ -3,8 +3,8 @@
  */
 
 import '@testing-library/jest-dom'
-import { render } from '@testing-library/react';
 import { screen, waitFor, fireEvent } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import React from 'react';
 import { mockGetFieldValue } from '../__mocks__/azure-devops-extension-sdk'
 import MultiIdentityPicker from '../MultiIdentityPicker/MultiIdentityPicker'

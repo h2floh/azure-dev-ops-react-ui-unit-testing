@@ -39,7 +39,6 @@ import {
     TwoLineTableCell
 } from "azure-devops-ui/Table";
 import { TextField, TextFieldWidth } from "azure-devops-ui/TextField";
-import { Tooltip } from "azure-devops-ui/TooltipEx";
 import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
 import * as React from "react";
 import { showRootComponent } from "../Common";
