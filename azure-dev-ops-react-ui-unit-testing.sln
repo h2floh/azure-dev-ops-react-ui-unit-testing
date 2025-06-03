@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dummyrestapi", "dummyrestapi", "{66D884B2-366C-F0FC-7247-2921E40A3D54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotnet-core-api-jwt-bearer", "dummyrestapi\src\dotnet-core-api-jwt-bearer.csproj", "{C8CAE329-466B-5E0A-5CAC-9DCBFCF9F8C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8CAE329-466B-5E0A-5CAC-9DCBFCF9F8C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8CAE329-466B-5E0A-5CAC-9DCBFCF9F8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8CAE329-466B-5E0A-5CAC-9DCBFCF9F8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8CAE329-466B-5E0A-5CAC-9DCBFCF9F8C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C8CAE329-466B-5E0A-5CAC-9DCBFCF9F8C4} = {66D884B2-366C-F0FC-7247-2921E40A3D54}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E3A49A5-FD6D-4AE1-B929-3C8191CE3668}
+	EndGlobalSection
+EndGlobal
