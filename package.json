@@ -31,7 +31,7 @@
     "azure-devops-extension-api": "^4.246.0",
     "azure-devops-extension-sdk": "^4.0.2",
     "azure-devops-ui": "^2.255.0",
-    "react": "^17.0.1",
+    "react": "^19.1.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^12.1.5",
     "@types/jest": "^29.5.14",
-    "@types/react": "^17.0.2",
+    "@types/react": "^19.1.11",
     "@types/react-dom": "^17.0.1",
     "@typescript-eslint/eslint-plugin": "^8.8.1",
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
