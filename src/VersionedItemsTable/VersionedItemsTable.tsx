@@ -378,7 +378,7 @@ export class VersionedItemsTable extends React.Component<object> {
      * @param {number} columnIndex Index of current column
      * @param {ITableColumn<ILinkItem>} tableColumn Table Column Definition
      * @param {ILinkItem} tableItem Table Item to process
-     * @returns {React.ReactElement} JSX.Element
+     * @returns {JSX.Element} JSX.Element
      */
     private renderLinkData(
         rowIndex: number,
@@ -427,7 +427,7 @@ export class VersionedItemsTable extends React.Component<object> {
      * @param {number} columnIndex Index of current column
      * @param {ITableColumn<ILinkItem>} tableColumn Table Column Definition
      * @param {ILinkItem} tableItem Table Item to process
-     * @returns {React.ReactElement} JSX.Element
+     * @returns {JSX.Element} JSX.Element
      */
     private renderLinkDetails(
         rowIndex: number,
@@ -492,6 +492,7 @@ export class VersionedItemsTable extends React.Component<object> {
                                     className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
                                     href={tableItem.webUIUrl}
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     <span className="text-ellipsis">{tableItem.path}</span>
                                 </a>
@@ -519,7 +520,7 @@ export class VersionedItemsTable extends React.Component<object> {
      * @param {number} columnIndex Index of current column
      * @param {ITableColumn<ILinkItem>} tableColumn Table Column Definition
      * @param {ILinkItem} tableItem Table Item to process
-     * @returns {React.ReactElement} JSX.Element
+     * @returns {JSX.Element} JSX.Element
      */
     private renderAction(
         rowIndex: number,
