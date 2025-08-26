@@ -22,7 +22,6 @@ import { Card } from "azure-devops-ui/Card";
 import { ObservableValue } from "azure-devops-ui/Core/Observable";
 import { Dropdown } from "azure-devops-ui/Dropdown";
 import { Icon } from "azure-devops-ui/Icon";
-import { Link } from "azure-devops-ui/Link";
 import { IListBoxItem } from "azure-devops-ui/ListBox";
 import { Observer } from "azure-devops-ui/Observer";
 import {
@@ -39,7 +38,6 @@ import {
     TwoLineTableCell
 } from "azure-devops-ui/Table";
 import { TextField, TextFieldWidth } from "azure-devops-ui/TextField";
-import { Tooltip } from "azure-devops-ui/TooltipEx";
 import { ArrayItemProvider } from "azure-devops-ui/Utilities/Provider";
 import * as React from "react";
 import { showRootComponent } from "../Common";
@@ -270,9 +268,9 @@ export class VersionedItemsTable extends React.Component<object> {
     /**
      * Part of the React Render Loop, will render the current React Element
      *
-     * @returns {JSX.Element} JSX Element
+     * @returns {React.ReactElement} JSX Element
      */
-    public render(): JSX.Element {
+    public render(): React.ReactElement {
 
         return (
             <Card
@@ -387,7 +385,7 @@ export class VersionedItemsTable extends React.Component<object> {
         columnIndex: number,
         tableColumn: ITableColumn<ILinkItem>,
         tableItem: ILinkItem
-    ): JSX.Element {
+    ): React.ReactElement {
 
         if (tableItem.status === LinkStatus.broken) {
             return (
@@ -436,7 +434,7 @@ export class VersionedItemsTable extends React.Component<object> {
         columnIndex: number,
         tableColumn: ITableColumn<ILinkItem>,
         tableItem: ILinkItem
-    ): JSX.Element {
+    ): React.ReactElement {
 
         if (tableItem.status === LinkStatus.new) {
 
@@ -454,14 +452,12 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden flex-grow">
-                                <Tooltip overflowOnly={true}>
-                                    <Dropdown
-                                        className="dropdown"
-                                        placeholder="Select a file"
-                                        items={this.gitDropdownBoxItems}
-                                        onSelect={this.onSelect.bind(this, tableItem)}
-                                    />
-                                </Tooltip>
+                                <Dropdown
+                                    className="dropdown"
+                                    placeholder="Select a file"
+                                    items={this.gitDropdownBoxItems}
+                                    onSelect={this.onSelect.bind(this, tableItem)}
+                                />
                             </div>
                         </span>
                     }
@@ -492,16 +488,14 @@ export class VersionedItemsTable extends React.Component<object> {
                                 size={StatusSize.l}
                             />
                             <div className="flex-row scroll-hidden">
-                                <Tooltip overflowOnly={true}>
-                                    <Link
-                                        className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
-                                        excludeTabStop
-                                        href={tableItem.webUIUrl}
-                                        target="_blank"
-                                    >
-                                        <span className="text-ellipsis">{tableItem.path}</span>
-                                    </Link>
-                                </Tooltip>
+                                <a
+                                    className="fontSizeMS font-size-ms secondary-text bolt-table-link bolt-table-inline-link"
+                                    href={tableItem.webUIUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <span className="text-ellipsis">{tableItem.path}</span>
+                                </a>
                             </div>
                         </span>
                     }
@@ -533,7 +527,7 @@ export class VersionedItemsTable extends React.Component<object> {
         columnIndex: number,
         tableColumn: ITableColumn<ILinkItem>,
         tableItem: ILinkItem
-    ): JSX.Element {
+    ): React.ReactElement {
 
         if (tableItem.status === LinkStatus.new) {
             return (
