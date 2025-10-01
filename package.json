@@ -32,7 +32,7 @@
     "azure-devops-extension-sdk": "4.0.2",
     "azure-devops-ui": "2.255.0",
     "react": "17.0.2",
-    "react-dom": "19.1.1"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@babel/preset-env": "7.27.2",
@@ -43,7 +43,7 @@
     "@testing-library/react": "12.1.5",
     "@types/jest": "29.5.14",
     "@types/react": "17.0.76",
-    "@types/react-dom": "19.1.9",
+    "@types/react-dom": "17.0.25",
     "@typescript-eslint/eslint-plugin": "8.8.1",
     "@typescript-eslint/eslint-plugin-tslint": "7.0.2",
     "@typescript-eslint/parser": "8.32.1",
